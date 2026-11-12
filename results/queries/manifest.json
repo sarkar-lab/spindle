@@ -9,7 +9,7 @@
   "results/_cache"
  ],
  "peak_rss_gb": 0.19,
- "notes": "Fig 4C. Old names: gene-list query T/TS -> method naive_partial/spindle_partial, jacc_T -> jacc_naive_partial.",
+ "notes": "Fig 4C.",
  "files": {
   "lists.csv": {
    "description": "per dataset, list and method: mean and s.d. over seeds",

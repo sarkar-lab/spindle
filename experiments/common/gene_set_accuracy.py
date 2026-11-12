@@ -1,6 +1,5 @@
-"""Gene-set search against the exact d_B^S on every held-out tile (Fig 4): Spindle, padding and imputation, and the
-summary tables. Ported from experiments/fig4_gene_set/c_nx.py and c_summary.py (in git history); workload and
-baselines in gene_set.py, readouts in retrieval.py.
+"""Gene-set search against the exact d_B^S on every held-out tile: Spindle, padding and imputation, and the
+summary tables. Workload and baselines in gene_set.py, readouts in retrieval.py.
 
     import gene_set_accuracy as gsa
     df, band = gsa.run("breast_cancer", 0)          # one row per (query, size, method); band arrays (seed 0, |S| = 16)
@@ -11,11 +10,10 @@ tiles (exact d_B of the completed query, stable sort). Readouts (graded by the e
 for Spindle also tiles returned, short of 10, work, A_hat, radius; segments of S in the home niche and the largest
 number in any niche.
 
-Declared before the run (Fig 4; user 26 Oct):
+Readouts:
 - Headline: NX5 of Spindle at g = 1; per (dataset, seed, size) the mean over held-out queries, then the
   mean +/- s.d. over seeds 0-4; per size the median over datasets (with padding and imputation); per dataset
-  all sizes pooled. Expected (19 Oct, seed 73, 100 queries): median NX5 about 12 % (8.4-32.8 %, LN5k highest), per
-  size 9.5 / 10.6 / 13.3 / 16.5 %; a large mismatch goes to the user.
+  all sizes pooled.
 - Typical query of the band plot: breast_cancer, seed 0, |S| = 16; among the held-out queries whose Spindle list
   holds at least 10 tiles, the one whose NX5 is the median (lower middle when even, ties by test order). Base rate
   stated with it: the share of |S| = 16 queries that return fewer than 10 tiles (typical_query).

@@ -1,13 +1,12 @@
-"""Whole-tile accuracy (Fig 2C, Supplementary Fig S5): Spindle against Spindle-naive on every held-out tile and the
+"""Whole-tile accuracy (Fig 2C, Supplementary Fig S6): Spindle against Spindle-naive on every held-out tile and the
 typical query of the band plot; the whole-tile timing tables (Fig 2B). Readouts in retrieval.py.
 
 nx_rows(key, seed)  The cached Spindle (beta = 0.10) is searched from the cached query vectors (Spindle.search_vectors,
     compiled) at every g in retrieval.GS; the exact d_B is the cache's D.npy (SpindleNaive.distances). Readouts per
     (query, g): NX5, Overlap(5 %, 5 % N), MX10, tiles returned, short of 10, work (node distances computed) and work /
     all nodes, A_hat, radius, nearest exact d_B.
-    Declared before the run (Fig 2C): headline NX5 at g = 0.25; per (dataset, seed) the mean over held-out queries, then
-    mean +/- s.d. over seeds 0-4; the text quotes the median over datasets. Expected (19 Oct, seed 73, 100 queries):
-    NX5 about 11 % (8.5-14.4 %).
+    Headline (Fig 2C): NX5 at g = 0.25; per (dataset, seed) the mean over held-out queries, then
+    mean +/- s.d. over seeds 0-4; the text quotes the median over datasets.
 typical(df, D, found)  The typical query of the band plot (seed 0, g = 0.25): among the held-out queries that return
     at least 10 tiles, the one whose NX5 is the median (lower middle when even, ties by test order). Base rate stated
     with it: the share of queries that return fewer than 10 tiles.

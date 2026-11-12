@@ -186,6 +186,6 @@ def staged_whole(key, mmap=True):
 
 
 def niche_means(key, seed):
-    """{niche: mean shrunk covariance of its index tiles (p x p float64)}, as the Fig 4 baselines use."""
+    """{niche: mean shrunk covariance of its index tiles (p x p float64)}, as the gene-set baselines use (Supplementary Fig S6)."""
     z = np.load(cache_dir(key, seed) / "niche_means.npz")
     return {int(k): z["M"][i] for i, k in enumerate(z["niches"])}

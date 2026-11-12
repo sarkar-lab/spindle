@@ -1,4 +1,4 @@
-"""Breast block programmes (Supplementary Fig S2; the whole-section build "full": every tile indexed) and breast
+"""Breast block programmes (Supplementary Fig S3; the whole-section build "full": every tile indexed) and breast
 whole-tile queries (Fig 3C; seed 0). The section loader and the statistics are sections.py. Every function returns
 tables (and arrays); R6_breast_programs.ipynb writes them.
 
@@ -16,7 +16,7 @@ correlation R_k (the mean of the niche's shrunk index covariances, as a correlat
 - hubs: the 3 genes with the largest summed |r| to the rest of the block.
 - enrichment: hypergeometric test against MSigDB Hallmark 2020 and GO Biological Process 2023 (Enrichr GMTs), the
   panel genes as background, terms with >= MIN_TERM panel genes, GO terms containing "regulation of" removed before
-  testing (generic terms; user rule 8 Oct); BH per block and library over the terms. A block is enriched if a term has
+  testing (generic terms); BH per block and library over the terms. A block is enriched if a term has
   FDR < 0.05 and >= 2 block genes; its key term is the best Hallmark term, else the best GO term (lowest FDR, then
   largest overlap). The same test on the N_NULL random sets of each block size gives the expected enriched fraction.
 - niche cell types: the 19 annotated types of the cells of the niche's index tiles; section = all cells.
@@ -24,16 +24,14 @@ correlation R_k (the mean of the niche's shrunk index covariances, as a correlat
   every gene in every niche's R_k and whether that gene is in ACTA2's block there.
 
 Whole-tile queries = every held-out tile of the seed. Spindle's top 10 (top 5) = the first 10 (5) tiles of
-search_vectors (default g = 0.25; fewer if it returns fewer, NaN if none; user, 2 Nov: every search result
-from Spindle). Readout (cells, not tiles): TV = 0.5 sum |a - b| between the query's 8-class composition
+search_vectors (default g = 0.25; fewer if it returns fewer, NaN if none). Readout (cells, not tiles): TV = 0.5 sum |a - b| between the query's 8-class composition
 (sections.CLASSES) and the pooled composition of the top 10's (top 5's) cells; null = the mean TV of N_RANDOM random
 10-tile (5-tile) draws of index tiles. Recorded, never claimed: Spindle-naive's top 10 / top 5 (the smallest exact d_B,
 the cache's D) and their TV; how many of Spindle-naive's 10 Spindle returns among its first 10.
-EXAMPLE RULE (approved 26 Oct, fixed before the run): seed 0; among the held-out tiles with >= 100 cells, the one with
+EXAMPLE RULE (fixed before the run): seed 0; among the held-out tiles with >= 100 cells, the one with
 the largest share of myoepithelial cells (ties: lower tile id). Reported with it: Spindle's top 10's and a random 10's
 pooled composition, the section's, and the base rate = the share of all held-out queries whose Spindle top-10 TV is
 below the random-10 TV.
-(Until 2 Nov the top 10 / top 5 were Spindle-naive's: columns tv_top / tv_top5, now tv_naive / tv_naive5.)
 """
 
 from pathlib import Path
@@ -56,7 +54,7 @@ FDR = 0.05
 MARKER = "ACTA2"
 MIN_CELLS = 100
 EXAMPLE_CLASS = "Myoepithelial"
-TOP5 = 5  # the top 5 of Fig 4C, with its own random 5-tile null
+TOP5 = 5  # the top 5 of Fig 3C, with its own random 5-tile null
 
 
 # ---------------------------------------------------------------- enrichment

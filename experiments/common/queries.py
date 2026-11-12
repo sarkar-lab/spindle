@@ -1,4 +1,4 @@
-"""Gene-list queries on every indexed section (Fig 4C, Supplementary Table of the signatures; R7_queries.ipynb).
+"""Gene-list queries on every indexed section (Fig 4C, Supplementary Table S7; R7_queries.ipynb).
 Section loader and statistics in sections.py.
 
 On every section (one (key, seed) at a time): the tissue's curated signatures (signatures.TISSUE_MODULES[TISSUE[key]])
@@ -8,8 +8,6 @@ with Spindle (first 10 of search_vectors, default g; method "spindle_partial"). 
 delta of the tile score (mean over S of the z-scored tile-mean log-normalised expression) of the returned tiles against
 the other index tiles; co-variation = mean off-diagonal correlation of S over a tile's cells (raw counts), median over
 the returned tiles against the median over all index tiles; Jaccard of Spindle's tiles with Spindle-naive's.
-Column names (old -> new): gene-list query T / TS -> method naive_partial / spindle_partial, jacc_T ->
-jacc_naive_partial.
 """
 
 import numpy as np

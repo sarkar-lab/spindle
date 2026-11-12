@@ -1,5 +1,4 @@
-"""Retrieval readouts shared by every accuracy result (Figs 3-5), as declared on 19 Oct (the normalised-excess metric).
-Ported from experiments/fig3_whole_tile/common3.py (in git history).
+"""Retrieval readouts shared by every accuracy result (the normalised-excess metric).
 
   NX(c)    = (mean exact d of the returned top c - mean exact top c) / (median exact d over all index tiles - mean
              exact top c); c_eff = min(c, tiles returned) (a short list is graded against the exact closest set of

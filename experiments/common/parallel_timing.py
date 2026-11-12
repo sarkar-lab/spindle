@@ -1,8 +1,8 @@
 """Multi-core query timing (complete queries; R11_parallel): how each step of a query scales with the number of cores.
 
 The single-thread timings (timing.py, R4) are the paper's benchmark. This module times the same steps on T physical
-cores, one worker per core (no SMT siblings), to show which steps of a query split across cores. src/ is frozen
-(method-v2), so the parallel versions here are experiment code built on the public pieces, and each is asserted equal
+cores, one worker per core (no SMT siblings), to show which steps of a query split across cores. The parallel
+versions here are experiment code built on the package's public pieces, and each is asserted equal
 to its single-thread counterpart, bit for bit, on the warm-up queries:
 
   qlog_whole   the whole-matrix vector (one p x p eigendecomposition): index_cache.whole_vectorizer(p).vector on T BLAS

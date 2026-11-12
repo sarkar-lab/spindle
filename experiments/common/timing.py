@@ -1,7 +1,7 @@
-"""Query timings of the compiled searches (Fig 3 whole tile, Fig 4 gene sets), from the index cache and R0's staged
-inputs. Ported from experiments/fig3_whole_tile/c_timing.py and experiments/fig4_gene_set/c_timing.py (in git history).
+"""Query timings of the compiled searches (complete and gene-set queries), from the index cache and R0's staged
+inputs.
 
-Like for like (CLAUDE.md Benchmarks): one thread (run under OMP_NUM_THREADS=1 etc.), compiled searches only, each step
+Like for like: one thread (run under OMP_NUM_THREADS=1 etc.), compiled searches only, each step
 timed once per query (perf_counter); per seed 0-4 the first N_TIMED held-out tiles in test order (all when fewer),
 N_WARM untimed warm-up queries per seed. The held-out covariances are copied into memory before anything is timed, so
 no step pays for reading the memory-mapped staged file.
@@ -18,7 +18,7 @@ whole_tile(key) -> one row per (seed, query), ms of every step:
 gene_set(key) -> one row per (seed, query, size), ms of every step:
   naive_partial       SpindleNaivePartial.distances + argsort (stable); its query logs (one per niche and block of S)
                       are computed inside, so they are timed again on their own right after, on the same query
-  qlog_naive_partial  gene_set.naive_partial_query_logs: those query logs, as distances computes them (user, 26 Oct)
+  qlog_naive_partial  gene_set.naive_partial_query_logs: those query logs, as distances computes them
   naive_partial_search  naive_partial - qlog_naive_partial per query: the Spindle-naive scan without its query logs
   spindle_partial     SpindlePartial.search_vectors, g = 1, from the query pieces computed beforehand
   qlog_spindle_partial  SpindlePartial.query_vectors (the query's piece logs in every niche), reported separately

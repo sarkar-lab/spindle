@@ -17,7 +17,7 @@ build: stages, each timed (perf_counter) with the peak resident memory after it 
 Then, untimed: omega = variance_quantiles(index covs); the held-out tiles' SpindleNaive.query_vectors and their exact
 d_B to every index tile (SpindleNaive.distances). Bytes: whole covariances as float32 upper triangles of the index
 tiles; SpindleNaive.nbytes, Spindle.nbytes, SpindleNaivePartial.nbytes, SpindlePartial.nbytes. The build times are
-Fig 2C, so builds run one at a time on one node (timing.sbatch); a local run is sequential anyway.
+reported (Supplementary Table S1), so builds run one at a time on one node (timing.sbatch); a local run is sequential anyway.
 
 stage (untimed; needs the dataset's builds, checks the covariances against them):
   covs.npy / covs.json, tiles.npz, cells.npz   prepare()'s covariances and tiles, the per-cell inputs (data.py)

@@ -1,14 +1,12 @@
 """How small the entries are that the block-diagonal layout leaves out (supplementary Fig S1), from the staged shrunk
-covariances and the seed-0 layout of each dataset (R10). Fig S1B is the per-tile version (``tile_means``, after
-HS_notebooks/dag_vs_true_le_distance.ipynb, Part G, 28 Sep; user, 3 Nov): each index tile's mean |r| over its
-within-block and its between-block gene pairs, one value per tile.
+covariances and the seed-0 layout of each dataset (R10). Fig S1B is the per-tile version (``tile_means``): each index
+tile's mean |r| over its within-block and its between-block gene pairs, one value per tile.
 
 Every index tile's shrunk covariance is turned into a correlation matrix and put in the gene order of its niche; its
 off-diagonal gene pairs are split into within-block pairs (both genes in one block of the niche) and between-block
-pairs (the entries that d_B ignores). Per entry only (user, 3 Nov): no share of the squared correlation. A gene with no
+pairs (the entries that d_B ignores). Per entry only: no share of the squared correlation. A gene with no
 counts in a tile has no covariance with any other gene (exactly 0; shrinkage only adds to the diagonal), so its
-correlations are undefined: pairs with such a gene are left out (they were 26 % of the breast pairs, all at r = 0;
-H. Sarkar, 3 Nov).
+correlations are undefined: pairs with such a gene are left out (they are 26 % of the breast pairs, all at r = 0).
 
     import block_structure as bs
     hist, summ = bs.dataset("breast_cancer")       # |r| histograms (EDGES), per-dataset summary row (from the cache)
@@ -173,9 +171,9 @@ def niche_means(key, seed=data.EXAMPLE_SEED):
     return hist, ex
 
 
-# ---------------------------------------------------------------------------------------------- Figs S6, S7 (4 Nov)
+# ---------------------------------------------------------------------------------------------- Figs S8, S9
 def consensus_example(key="breast_cancer", seed=data.EXAMPLE_SEED, n_tiles=3, rng_seed=0):
-    """Fig S6 (user, 4 Nov: dendrograms, no knee): the consensus tree of the largest niche of the seed-0 layout. Every
+    """Fig S8: the consensus tree of the largest niche of the seed-0 layout. Every
     index tile's gene dendrogram (average linkage on 1 - |r|, ``layout.spd_to_ultrametric``) is recomputed from the
     staged covariances; their mean cophenetic matrix agrees with the layout's cached one to < 1e-3 (asserted; the
     staged covariances are rounded, which can swap near-tied merges), and the consensus tree is the layout's own
@@ -225,11 +223,11 @@ def consensus_example(key="breast_cancer", seed=data.EXAMPLE_SEED, n_tiles=3, rn
             "names": names, "corr": R.astype(np.float32), "niche": k, "n_tiles": len(rows)}
 
 
-DYADIC_POSITIONS = (*range(2, 9), 11, 12, *range(16, 20))  # an illustrative gene set inside one block (Fig S7)
+DYADIC_POSITIONS = (*range(2, 9), 11, 12, *range(16, 20))  # an illustrative gene set inside one block (Fig S9)
 
 
 def dyadic_example(key="breast_cancer", seed=data.EXAMPLE_SEED, block=None, positions=DYADIC_POSITIONS):
-    """Fig S7: the dyadic decomposition of an illustrative gene set inside block ``block`` of the largest niche (default:
+    """Fig S9: the dyadic decomposition of an illustrative gene set inside block ``block`` of the largest niche (default:
     the block of 20-32 genes with the largest mean |r| between its genes in the niche's mean correlation matrix)
     (seed-0 Spindle-Partial index). Every aligned dyadic interval of the block with its node count K_I, the gene set's
     pieces (SpindlePartial niche ``pieces``), the niche's mean correlation on the block, and every index tile's node in

@@ -1,14 +1,12 @@
-"""One indexed section with its cached build and per-cell inputs, and the statistics of the query results (Figs 3-4),
-from the staged inputs of R0 (no h5ad, no covariance recomputed). Ported from experiments/fig6_breast/common6.py and
-experiments/fig7_skin/common7.py (in git history), themselves from the 17 Oct block-programme code, the poster v2 biology
-and the gene-set pilot.
+"""One indexed section with its cached build and per-cell inputs, and the statistics of the query results,
+from the staged inputs of R0 (no h5ad, no covariance recomputed).
 
     import sections as sx
     S = sx.load("breast_cancer", 0, parts=("layout", "spindle", "naive_partial", "queries", "D"))
     S = sx.load("breast_cancer", "full")       # breast: the layout of every tile (no tile held out), built here
 
 Cell labels: breast, the section's annotation (``Cluster``; "Unlabeled" cells are dropped by sd.load_adata), 19 types,
-used as they are in the niche enrichment (Fig 6) and grouped into the 8 classes of CLASSES for tile compositions (cells,
+used as they are in the niche enrichment (Supplementary Fig S3A) and grouped into the 8 classes of CLASSES for tile compositions (cells,
 not tiles); every other section, the 10x graph-based clusters (cells without a cluster are left out of compositions).
 Expression: raw counts on the index genes,
 log-normalised per cell, log1p(x / total * median total).

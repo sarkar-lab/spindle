@@ -1,13 +1,13 @@
-"""Cross-dataset maps and partial queries from held-out tiles (Fig 4A-B, Supplementary Tables of the composition
-differences and of Spearman's rho; R9_skin_maps.ipynb). Section loader and statistics in sections.py; programme queries
+"""Cross-dataset maps and partial queries from held-out tiles (Fig 4A-B, Supplementary Tables S6 (composition
+differences) and S5 (Spearman's rho); R9_skin_maps.ipynb). Section loader and statistics in sections.py; programme queries
 as pan_cancer.py.
 
 RULES (fixed before the run):
 - SKIN CELLS (seed 0): a cell's programme score = mean over S of its log-normalised expression, each gene z-scored over
   the section's cells (so no one abundant gene dominates, as the tile score); also each index tile's tile score, each
   cell's index tile (-1 = held-out or dropped tile), each programme's query Q (the covariance searched for) and the
-  index tiles Spindle returns for Q (SpindlePartial.search_vectors, default g; index-tile positions, best first; added
-  2 Nov, user: the maps keep the exact d_B^S of every tile and mark the tiles Spindle returns).
+  index tiles Spindle returns for Q (SpindlePartial.search_vectors, default g; index-tile positions, best first; the
+  maps keep the exact d_B^S of every tile and mark the tiles Spindle returns).
 - SKIN GENE-SET QUERIES (seed 0): gene_set_queries below; Fig 4B uses |S| = 4 and 16; queries with no tile returned
   are reported and left out of the figure.
 - EVERY SECTION (seed 0): the skin maps' arrays (SKIN CELLS, with each index tile's exact d_B^S to each programme

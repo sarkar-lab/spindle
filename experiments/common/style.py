@@ -8,7 +8,7 @@
 
 Rules:
 - Saved at exactly its size (never bbox_inches="tight"). PDF vector, TrueType (fonttype 42); PNG 1200 dpi; artists
-  made with ``rasterized=True`` (cell clouds) are rasterised at 1200 dpi. Resolution rule (user, 26 Oct): nothing may
+  made with ``rasterized=True`` (cell clouds) are rasterised at 1200 dpi. Resolution rule: nothing may
   break when zoomed in, within 10 MB per file.
 - Liberation Sans; axis labels 8 pt, ticks and legends 7 pt, panel letters 9 pt bold, lines 0.75 pt.
 - Plotting only: compute nodes lack the font, so never import this module in a result notebook or sbatch job.
@@ -89,7 +89,7 @@ plt.rcParams.update({
     "figure.dpi": 150,
 })
 
-# ---------------------------------------------------------------- colours (poster/style.py)
+# ---------------------------------------------------------------- colours
 DATASET_ORDER = ["skin_melanoma", "kidney_nondiseased", "breast_cancer", "lung_cancer",
                  "pancreatic_cancer", "lymph_node", "lymph_node_5k", "brain_cancer"]
 DATASET_LABELS = {

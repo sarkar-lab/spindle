@@ -1,7 +1,5 @@
-"""The cross-platform experiment (Fig 5; R5_cross_platform.ipynb): the Xenium / Visium pair, its tiles, the platform
+"""The cross-platform experiment (Fig 3; R5_cross_platform.ipynb): the Xenium / Visium pair, its tiles, the platform
 correction, the search per layout seed, the section maps, the platform-bias PCA, the example query and the summaries.
-Ported from experiments/fig5_cross_platform/{common5,c_cross,c_extras,c_summary}.py (in git history), themselves from the
-6 Oct cross-platform script (git show e514803^:benchmarks/cross_platform/cross_platform_tiers.py), onto the public API.
 
 Data: the two registered serial breast sections of datasets.yaml (cross_modal_xenium, cross_modal_visium), read with
 sd.load_adata (cells annotated "Unlabeled" dropped: 4,305 Xenium cells; Visium has none), raw counts on the genes the
@@ -24,19 +22,16 @@ none / per_niche / global:
   spindle_<arm>   Spindle.search_vectors (g = 0.25) of the corrected query: the tiles it returns, best first (its top
                   10 = its first 10, fewer if it returns fewer; a co-located tile it does not return has no rank)
   naive_<arm>     SpindleNaive.distances (d_B) of the corrected query, all index tiles ranked (reference only)
-(Until 2 Nov the headline, the ablation and the example used naive_<arm>; user, 2 Nov: every search result from
-Spindle, so Spindle now runs on every arm.)
 
-Declared before the run (Fig 5; user, 26 Oct):
+Readouts (Fig 3, Supplementary Fig S7):
 - Headline: tissue agreement of spindle_global = Pearson r over queries between the query tile's tumour fraction
   (invasive + DCIS cells or spots, own platform's annotation) and the mean tumour fraction of its top 10 on the other
   platform; per (direction, seed), then mean +/- s.d. over seeds 0-4. Base rate: the mean absolute difference to
-  all index tiles (random) beside the top-10 one. Expected (6 Oct, old code): r about 0.85-0.89.
-- Ablation: the same r for none / per_niche / global. The expression and variance-only controls were run once
-  (26 Oct, jobs 23272/23279: r 0.93-0.94 and 0.78-0.82) and dropped from the figure and text (user, 26 Oct).
+  all index tiles (random) beside the top-10 one.
+- Ablation: the same r for none / per_niche / global.
 - Spindle accuracy (text only): NX5 and Overlap(5 %, 5 % N) of spindle_global against naive_global, mean over queries
   per seed.
-- Co-located tile rank (hit@1/5/10) is kept in the per-query table; no panel (user, 26 Oct).
+- Co-located tile rank (hit@1/5/10) is kept in the per-query table; no panel.
 
 Extras (seed 0 / seed-independent): section maps (``maps``), platform-bias PCA (``bias_pca``), example query
 (``example``; rule in its docstring).
@@ -324,9 +319,8 @@ def bias_pca(S):
 
 
 def example(S, top10):
-    """Fig 5F example. top10: {seed: the search's "top10" table}. Rule (user, 26 Oct; replaces the first rule, which
-    picked the Visium query with the largest DCIS share, query 12: top 5 at 2-54 % DCIS, co-located tile at rank 54):
-    seed 0, direction v2x (Visium query, Xenium index), spindle_global (naive_global until 2 Nov; Spindle's top 5 = its
+    """Fig 3B example. top10: {seed: the search's "top10" table}. Rule:
+    seed 0, direction v2x (Visium query, Xenium index), spindle_global (Spindle's top 5 = its
     first 5, fewer if it returns fewer). A query's focal class is the larger of its DCIS
     and immune shares (classes in separate, recognisable foci on both platforms). Among the queries whose focal share
     is > 0.5 and whose co-located Xenium tile is in the top 5, the one whose top 5 have the largest mean share of the

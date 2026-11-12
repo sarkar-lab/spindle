@@ -10,7 +10,7 @@
   "results/timing (R4_timing)"
  ],
  "peak_rss_gb": 0.15,
- "notes": "every dataset on T physical cores of ROSALIND-CPU1 (one hardware thread per core; node shared with other users' jobs); mode full. The brain-only runs of 4 Nov are in _brain_only_2026-11-04/.",
+ "notes": "every dataset on T physical cores of ROSALIND-CPU1 (one hardware thread per core; node shared with other users' jobs); mode full.",
  "files": {
   "per_dataset/brain_cancer/timing.csv": {
    "description": "brain_cancer: one row per (threads, seed, query), ms of every step on T physical cores (full)",

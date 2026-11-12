@@ -1,6 +1,5 @@
-"""The gene-set workload and the two whole-tile baselines (Fig 4 accuracy and the gene-set timings); readouts in
-retrieval.py. Ported from experiments/fig4_gene_set/common4.py (in git history); the niche means of the imputation
-baseline come from the cache (data.niche_means, staged by R0 exactly as common4.niche_means computed them).
+"""The gene-set workload and the two whole-tile baselines (gene-set accuracy and timings); readouts in
+retrieval.py. The niche means of the imputation baseline come from the cache (data.niche_means, staged by R0).
 
 Workload (contiguous sets only): per held-out tile and size
 |S| = 4 / 8 / 16 / 32, a run of consecutive genes in one block of the query's home niche (the niche of its exact-d_B

@@ -1,4 +1,4 @@
-"""The block distance d_B against the whole-matrix log-Euclidean distance d_W, niche by niche (supplementary Fig S9).
+"""The block distance d_B against the whole-matrix log-Euclidean distance d_W, niche by niche (supplementary Fig S2).
 
 How much does leaving out the between-block entries change the distance? For random pairs of index tiles in the same
 niche (so both tiles share the niche's gene order and blocks), seed-0 layout, shrunk covariances:

@@ -1,10 +1,9 @@
-"""Curated gene signatures for the gene-list queries (ported unchanged from the old repository's
-benchmarks/common/gene_signatures.py, in git history).
+"""Curated gene signatures for the gene-list queries.
 
 TISSUE_MODULES: per-tissue signatures; every gene was checked against that tissue's Xenium panel (not against the
 index genes: the 5K panel keeps only its top-variance 400 genes).
 GENERIC_MODULES: cross-tissue pathway signatures (genes missing from a panel are dropped).
-PAN_CANCER_MODULES: the Fig 8 programs, every gene in all 5 tumour panels.
+PAN_CANCER_MODULES: the cross-dataset programs (Fig 4A), every gene in all 5 tumour panels.
 TISSUE: dataset key -> TISSUE_MODULES key.
 """
 
@@ -205,9 +204,9 @@ GENERIC_MODULES = {
     },
 }
 
-# Pan-cancer programs (Fig 8): every gene is in all 5 tumour panels (breast, lung, pancreas, brain, skin).
+# Pan-cancer programs: every gene is in all 5 tumour panels (breast, lung, pancreas, brain, skin).
 # Hypoxia (CA9, SLC2A1, LDHA, ...) and collagen-based CAF genes are in none of them, so they are absent.
-# Checkpoint / Treg (PDCD1, CTLA4, LAG3, HAVCR2, FOXP3, IL2RA, CD274) was tried in the pilot and dropped: its
+# Checkpoint / Treg (PDCD1, CTLA4, LAG3, HAVCR2, FOXP3, IL2RA, CD274) is not included: its
 # breast exemplar had no co-variation (mean r 0.008) and its hits no score enrichment (Cliff's delta -0.03).
 PAN_CANCER_MODULES = {
     "Cytotoxic_T": {

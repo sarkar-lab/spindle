@@ -160,7 +160,7 @@ registered as the Jupyter kernel `spindle_env`.
 | Supp. Tables S1–S7 | [`T_supplement`](experiments/figures/T_supplement.ipynb) | [`supp_tables`](figures/supp_tables/) | R1, R4, R7, R8, R9 |
 
 Fig 1 as published is in [`figures/fig1_overview/`](figures/fig1_overview/); panels A–E were drawn by hand.
-`T1`–`T7.tex` are Supp. Tables S1–S4, S7, S5 and S6, in that order. The topics in `results/` are `index_cost` (R1),
+`T1`–`T7.tex` are Supp. Tables S1–S4, S6, S7 and S5, in that order. The topics in `results/` are `index_cost` (R1),
 `whole_tile` (R2), `gene_set` (R3), `timing` (R4), `cross_platform` (R5), `breast_programs` (R6), `queries` (R7),
 `pan_cancer` (R8), `skin_maps` (R9), `block_structure` (R10), `parallel` (R11) and `block_distance` (R12).
 
