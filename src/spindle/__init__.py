@@ -1,10 +1,8 @@
 """Spindle: search over spatial-omics tile covariances.
 
 - ``layout``: tiles -> covariance niches -> gene order and blocks per niche (shared by all indexes).
-- ``spindle``: Spindle (``Spindle``), the layered block DAG searched with a radius set by the greedy probe
-  (paper/SPINDLE_LITE.md).
-- ``spindle_partial``: Spindle partial (``SpindlePartial``), gene-set queries on dyadic gene intervals
-  (paper/SPINDLE_PARTIAL.md).
+- ``spindle``: Spindle (``Spindle``), the layered block DAG searched with a radius set by the greedy probe.
+- ``spindle_partial``: Spindle partial (``SpindlePartial``), gene-set queries on dyadic gene intervals.
 - ``naive``: Spindle-naive, the exact block-log scan (``SpindleNaive`` for whole tiles, ``SpindleNaivePartial`` for
   gene sets).
 - ``queries``: gene-set queries from gene names (``gene_indices``; ``template_query`` = Methods Eq. (signature) with

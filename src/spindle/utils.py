@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 
 
-def get_logger(name: str = "spindle_dev") -> logging.Logger:
+def get_logger(name: str = "spindle") -> logging.Logger:
     """A logger with a simple stream handler (added once)."""
     logger = logging.getLogger(name)
     if not logger.handlers:

@@ -49,9 +49,9 @@ import pandas as pd
 
 import data  # puts src/ on sys.path
 import retrieval as rt
-import spindle_dev as sd
-from spindle_dev.metrics import LOG_FLOOR, log_spd
-from spindle_dev.preprocessing import QuadTile, build_quadtree_tiles, build_tile_covs_full
+import spindle as sd
+from spindle.metrics import LOG_FLOOR, log_spd
+from spindle.preprocessing import QuadTile, build_quadtree_tiles, build_tile_covs_full
 
 CACHE = data.CACHE / "cross_modal"
 MAX_PTS = 2000

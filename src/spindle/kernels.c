@@ -418,7 +418,7 @@ void spindle_row_dists(const float *c, const double *q, int64_t n, int64_t dim, 
     for (int64_t i = 0; i < n; i++) out[i] = sqrt(pairwise(c + i * dim, q, dim));
 }
 
-/* Spindle, one niche at a time (method-v3; FlatSpindle.search_parallel): the two phases of spindle_search split by
+/* Spindle, one niche at a time (FlatSpindle.search_parallel): the two phases of spindle_search split by
  * niche, so the niches can run on different cores. spindle_probe_niche = probe_niche for niche k (its greedy leaf's
  * A^2 in *out_a2), spindle_scan_niche = scan_niche for niche k with r2 (hits: A^2 and tile, in scan order). Each node
  * belongs to one niche, so niches use disjoint parts of dcache; the probe resets niche k's part and the scan of niche k

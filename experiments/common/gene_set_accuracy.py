@@ -29,7 +29,7 @@ import pandas as pd
 import data
 import gene_set as gs
 import retrieval as rt
-import spindle_dev as sd
+import spindle as sd
 
 MB = 1e6
 

@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 import data
-from spindle_dev.metrics import as_cov, spd_to_correlation
+from spindle.metrics import as_cov, spd_to_correlation
 
 EDGES = np.linspace(0.0, 1.0, 1001)  # |r| bins of width 0.001
 QUANTILES = (0.5, 0.9, 0.99)
@@ -185,7 +185,7 @@ def consensus_example(key="breast_cancer", seed=data.EXAMPLE_SEED, n_tiles=3, rn
     to the rest of the block), and the niche's mean correlation in its gene order."""
     from scipy.cluster.hierarchy import dendrogram, linkage, to_tree
     from scipy.spatial.distance import squareform
-    from spindle_dev import layout as lay
+    from spindle import layout as lay
 
     covs = data.staged_covs(key)
     c = data.load_cache(key, seed, parts=("layout",))

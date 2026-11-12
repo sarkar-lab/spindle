@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 import sections as sx
-import spindle_dev as sd
+import spindle as sd
 
 PARTS = ("layout", "naive_partial", "spindle_partial")
 

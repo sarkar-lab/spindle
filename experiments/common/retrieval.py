@@ -13,7 +13,7 @@ Ported from experiments/fig3_whole_tile/common3.py (in git history).
 import numpy as np
 
 G_DEFAULT = 0.25
-GS = [0.25, 0.354, 0.5, 0.75, 1.0, 1.5]     # the whole-tile g trade-off of SPINDLE_LITE.md §5
+GS = [0.25, 0.354, 0.5, 0.75, 1.0, 1.5]     # the whole-tile g trade-off
 
 
 def c5(n):

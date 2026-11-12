@@ -13,8 +13,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 import paths  # noqa: E402
-import spindle_dev as sd  # noqa: E402
-from spindle_dev.metrics import query_cov_s  # noqa: E402
+import spindle as sd  # noqa: E402
+from spindle.metrics import query_cov_s  # noqa: E402
 
 GENE_LIST = ["CD68", "CD163", "CD14", "AIF1", "MNDA"]
 

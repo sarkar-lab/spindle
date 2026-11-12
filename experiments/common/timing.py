@@ -37,8 +37,8 @@ import pandas as pd
 import data
 import gene_set as gs
 import index_cache
-import spindle_dev as sd
-from spindle_dev.kernels import naive_scan
+import spindle as sd
+from spindle.kernels import naive_scan
 
 N_TIMED = 200
 N_WARM = 3

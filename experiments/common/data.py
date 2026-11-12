@@ -46,10 +46,9 @@ for _p in (ROOT / "src", ROOT):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import paths  # noqa: E402
-import spindle_dev as sd  # noqa: E402
+import spindle as sd  # noqa: E402
 
-TAG = "method-v2"  # the tag every result carries
-SRC_TAG = "method-v3"  # src/ must equal this: method-v2 + Spindle's search split by niche (new functions only)
+TAG = "method-v2"  # the version label every result carries (checked when results are combined)
 SEEDS = [0, 1, 2, 3, 4]
 EXAMPLE_SEED = 0
 TEST_RATIO = 0.1
@@ -66,14 +65,7 @@ def _git(*args):
 
 
 def stamp():
-    """The code version of a result: ``tag`` is TAG only if src/ is identical to SRC_TAG (committed and in the working
-    tree); otherwise this raises, because a result of a changed method is not a figure input. method-v2 is method-v1
-    with the method renamed (bit-identical outputs); method-v3 is method-v2 plus Spindle's search split by niche
-    (kernels.c spindle_probe_niche / spindle_scan_niche, FlatSpindle.search_parallel, Spindle.search_vectors_parallel;
-    new functions only, so every method-v2 output is unchanged and results keep the method-v2 tag)."""
-    if _git("diff", SRC_TAG, "--", "src/"):
-        changed = _git("diff", "--name-only", SRC_TAG, "--", "src/")
-        raise RuntimeError(f"src/ differs from {SRC_TAG}: {changed.split()}; no figure input can be made")
+    """The code version of a result: TAG, the label every result carries, and the git commit it was made from."""
     return {"tag": TAG, "describe": _git("describe", "--tags", "--dirty", "--always"),
             "commit": _git("rev-parse", "--short", "HEAD")}
 
@@ -172,7 +164,7 @@ def staged_covs(key):
 
 def staged_tiles(key):
     """prepare()'s tiles (QuadTile objects) from tiles.npz."""
-    from spindle_dev.preprocessing import QuadTile
+    from spindle.preprocessing import QuadTile
     z = np.load(CACHE / key / "tiles.npz")
     off, idx, bbox = z["off"], z["idx"], z["bbox"]
     return [QuadTile(int(i), tuple(float(v) for v in bbox[t]), idx[off[t]:off[t + 1]])

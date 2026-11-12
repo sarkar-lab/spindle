@@ -1,4 +1,4 @@
-"""Spindle, final configuration (paper/SPINDLE_LITE.md): a layered block DAG per niche, searched with a radius
+"""Spindle, final configuration: a layered block DAG per niche, searched with a radius
 set by the query's own best match.
 
 Vectors are Spindle-naive's (``naive.BlockVectorizer``): a block's float32 upper-triangle log, off-diagonals times
@@ -347,7 +347,7 @@ class Spindle:
 
     def search_vectors_parallel(self, qv: Dict[int, np.ndarray], g: float = G_DEFAULT, threads: Optional[int] = None,
                                 executor=None):
-        """``search_vectors`` with one query's niches searched in parallel threads (method-v3; same output, bit for
+        """``search_vectors`` with one query's niches searched in parallel threads (same output, bit for
         bit): every niche's probe, then every niche's scan with the common radius (kernels.FlatSpindle.search_parallel).
         """
         rows, scores, a_hat, r, work = self.flat.search_parallel(qv, g, threads, executor)

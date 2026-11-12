@@ -21,7 +21,7 @@ import pandas as pd
 
 import data
 import sections as sx
-import spindle_dev as sd
+import spindle as sd
 from signatures import PAN_CANCER_MODULES
 
 SOURCE = "breast_cancer"

@@ -28,9 +28,9 @@ import numpy as np
 repo = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(repo / "src"), str(repo)]
 import paths  # noqa: E402
-import spindle_dev as sd  # noqa: E402
-from spindle_dev.spindle_partial import interval_vectors  # noqa: E402
-from spindle_dev.metrics import query_cov_s  # noqa: E402
+import spindle as sd  # noqa: E402
+from spindle.spindle_partial import interval_vectors  # noqa: E402
+from spindle.metrics import query_cov_s  # noqa: E402
 
 key = sys.argv[1]
 t0 = time.time()

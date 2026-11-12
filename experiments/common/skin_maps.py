@@ -23,7 +23,7 @@ import pandas as pd
 import gene_set as gs
 import pan_cancer as pc
 import sections as sx
-import spindle_dev as sd
+import spindle as sd
 
 KEY = "skin_melanoma"
 

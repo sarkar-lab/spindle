@@ -13,14 +13,13 @@ recomputes a few pairs from the covariances.
     import block_distance as bd
     pairs, niches = bd.pairs("breast_cancer")    # one row per tile pair (d_whole, d_block); one row per niche
     bd.check("breast_cancer", pairs)             # a few pairs recomputed from the staged covariances
-    pairs, info = bd.dataset_pairs("lung_cancer")  # the same over a whole dataset: pairs within any of its niches
 """
 
 import numpy as np
 import pandas as pd
 
 import data
-from spindle_dev.metrics import log_spd
+from spindle.metrics import log_spd
 
 N_NICHES = 3      # the largest niches of the seed-0 layout
 N_PAIRS = 1000    # distinct unordered pairs per niche
@@ -45,31 +44,6 @@ def pairs(key, seed=data.EXAMPLE_SEED, n_niches=N_NICHES, n_pairs=N_PAIRS, rng_s
         out.append(_distances(c, W, k, iu[0][pick], iu[1][pick]))
         info.append({"niche": k, "tiles": n, "blocks": len(vec.runs), "p": len(c.genes)})
     return pd.concat(out, ignore_index=True), pd.DataFrame(info)
-
-
-def dataset_pairs(key, seed=data.EXAMPLE_SEED, n_pairs=N_PAIRS, rng_seed=RNG_SEED):
-    """(pairs, info): ``n_pairs`` distinct random pairs of index tiles of a dataset, drawn uniformly from every pair
-    of tiles in the same niche (d_B exists only within a niche: both tiles need its gene order and blocks), so niches
-    contribute in proportion to their pairs; and the dataset's index tiles, niches and genes."""
-    c = data.load_cache(key, seed, parts=("naive",))
-    W = data.staged_whole(key)
-    naive = c.naive
-    niches = sorted(naive.layouts)
-    sizes = np.array([len(naive.layouts[k][0]) for k in niches])
-    counts = sizes * (sizes - 1) // 2                  # same-niche pairs per niche
-    starts = np.r_[0, np.cumsum(counts)]
-    rng = np.random.default_rng(rng_seed)
-    pick = np.sort(rng.choice(starts[-1], n_pairs, replace=False))
-    which = np.searchsorted(starts, pick, side="right") - 1
-    out = []
-    for i, k in enumerate(niches):
-        local = pick[which == i] - starts[i]
-        if len(local) == 0:
-            continue
-        iu = np.triu_indices(sizes[i], 1)
-        out.append(_distances(c, W, k, iu[0][local], iu[1][local]))
-    info = {"tiles": int(sizes.sum()), "niches": len(niches), "p": len(c.genes)}
-    return pd.concat(out, ignore_index=True), info
 
 
 def _distances(c, W, k, a, b):

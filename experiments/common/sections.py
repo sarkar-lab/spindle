@@ -20,9 +20,9 @@ import numpy as np
 from scipy.stats import rankdata
 
 import data
-import spindle_dev as sd
+import spindle as sd
 from signatures import TISSUE, TISSUE_MODULES
-from spindle_dev.metrics import as_cov
+from spindle.metrics import as_cov
 
 BREAST = "breast_cancer"
 TOP = 10

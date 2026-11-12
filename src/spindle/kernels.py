@@ -12,7 +12,7 @@ times these.
 
 The shared library is built with gcc on first use into ``_build/`` next to this file (on the shared file system),
 named by the source's hash. Compute nodes have no gcc: after the C file changes, build once on the login node with
-``python -c "import spindle_dev.kernels as k; print(k.build())"``. ``-mavx2`` runs on both the login node and the
+``python -c "import spindle.kernels as k; print(k.build())"``. ``-mavx2`` runs on both the login node and the
 compute nodes.
 
 Flat index (``FlatSpindle``, derived from ``SpindleNiche`` objects; global ids run over niches in sorted order, then layers,
@@ -51,7 +51,7 @@ def build() -> Path:
     cc = shutil.which("gcc") or shutil.which("cc")
     if cc is None:
         raise RuntimeError(f"{lib.name} is not built and there is no C compiler here (compute node?); run "
-                           f"`python -c \"import spindle_dev.kernels as k; k.build()\"` on the login node once")
+                           f"`python -c \"import spindle.kernels as k; k.build()\"` on the login node once")
     lib.parent.mkdir(exist_ok=True)
     tmp = lib.with_suffix(f".{os.getpid()}.tmp")
     subprocess.run([cc, *_FLAGS, "-o", str(tmp), str(_SRC), "-lm"], check=True)
@@ -77,7 +77,7 @@ def _lib():
         lib.partial_search.argtypes = [_p] * 9 + [_i64] + [_p] * 4 + [ctypes.c_double] + [_p] * 4
         lib.spindle_row_dists.restype = None
         lib.spindle_row_dists.argtypes = [_p, _p, _i64, _i64, _p]
-        lib.spindle_probe_niche.restype = _i64  # method-v3: Spindle's search niche by niche
+        lib.spindle_probe_niche.restype = _i64  # Spindle's search niche by niche
         lib.spindle_probe_niche.argtypes = [_p] * 10 + [_i64, _i64, _p, _i64, _p, _p]
         lib.spindle_scan_niche.restype = _i64
         lib.spindle_scan_niche.argtypes = [_p] * 10 + [_i64, _i64, _p, _i64, ctypes.c_double, _p, _p, _p, _p]
@@ -175,7 +175,7 @@ class FlatSpindle:
         with ThreadPoolExecutor(max_workers=threads or os.cpu_count()) as ex:
             return list(ex.map(lambda qv: self.search(qv, g), qvs))
 
-    # ---------------------------------------------------------- method-v3: one query's search split by niche
+    # ---------------------------------------------------------- one query's search split by niche
     # ``search`` in two phases, each niche on its own (kernels.c spindle_probe_niche / spindle_scan_niche): probe every
     # niche, A_hat = sqrt(the smallest leaf A^2), r = g * A_hat, scan every niche with r^2, then ``assemble``. Same
     # output as ``search``, bit for bit. A niche's probe and scan must share one ``dcache`` (float64, n_nodes long; the

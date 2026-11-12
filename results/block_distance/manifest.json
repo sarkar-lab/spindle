@@ -13,16 +13,6 @@
  "peak_rss_gb": 1.65,
  "notes": "",
  "files": {
-  "dataset_pairs.csv": {
-   "description": "every dataset, seed-0 layout: 1000 random distinct pairs of index tiles drawn uniformly from all pairs of tiles in the same niche (default_rng(0) per dataset); niche, d_whole, d_block as in pairs.csv",
-   "rows": 8000,
-   "bytes": 583058
-  },
-  "datasets.csv": {
-   "description": "per dataset: index tiles, niches, genes p, niches with at least one sampled pair",
-   "rows": 8,
-   "bytes": 339
-  },
   "niches.csv": {
    "description": "the plotted niches, largest first: index tiles, blocks, genes p",
    "rows": 3,

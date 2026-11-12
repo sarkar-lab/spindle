@@ -1,4 +1,4 @@
-"""Spindle partial, final configuration (paper/SPINDLE_PARTIAL.md): gene-set queries on dyadic gene intervals,
+"""Spindle partial, final configuration: gene-set queries on dyadic gene intervals,
 searched with a radius set by the query's own best match.
 
 Distances are unnormalised Frobenius distances between matrix logs (symmetric matrices as upper triangles with

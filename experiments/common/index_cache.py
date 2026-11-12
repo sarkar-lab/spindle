@@ -44,9 +44,9 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import data  # noqa: E402
-import spindle_dev as sd  # noqa: E402
-from spindle_dev.metrics import as_cov  # noqa: E402
-from spindle_dev.naive import BlockVectorizer  # noqa: E402
+import spindle as sd  # noqa: E402
+from spindle.metrics import as_cov  # noqa: E402
+from spindle.naive import BlockVectorizer  # noqa: E402
 
 BUILD_FILES = ("build.json", "split.npz", "layout.pkl", "spindle.pkl", "spindle_partial.pkl", "naive.pkl",
                "naive_partial.pkl", "queries.pkl", "D.npy")

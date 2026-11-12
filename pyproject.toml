@@ -1,15 +1,29 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "spindle-dev"
+name = "spindle"
 version = "0.1.0"
-description = "Spindle and Spindle-naive: search over spatial-omics tile covariances."
+description = "Scalable indexing of spatial-omics data for fast querying."
 readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
-license = { text = "MIT" }
-
+authors = [
+  { name = "Souvik Ghosh" },
+  { name = "Stavros Sintos" },
+  { name = "Anrin Chakraborti" },
+  { name = "Hirak Sarkar" },
+]
+keywords = ["spatial transcriptomics", "indexing", "similarity search", "gene co-expression", "SPD matrices"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C",
+  "Operating System :: POSIX :: Linux",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
 dependencies = [
   "numpy",
   "scipy",
@@ -20,3 +34,13 @@ dependencies = [
   "igraph",
   "leidenalg",
 ]
+
+[project.urls]
+Homepage = "https://github.com/sarkar-lab/spindle"
+Source = "https://github.com/sarkar-lab/spindle"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+spindle = ["kernels.c"]

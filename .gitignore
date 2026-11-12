@@ -73,8 +73,8 @@ paper/
 Spindle/
 
 
-# Compiled search kernels (built on first use from src/spindle_dev/kernels.c)
-src/spindle_dev/_build/
+# Compiled search kernels (built on first use from src/spindle/kernels.c)
+src/spindle/_build/
 
 # Talk deck, its scripts, figures and results (local only)
 presentation/
@@ -96,3 +96,6 @@ _backups/
 # Claude Code instructions and settings (local only)
 CLAUDE.md
 .claude/
+
+# Figure panels (written by the figure notebooks; only the assembled figures are tracked)
+figures/*/panels/

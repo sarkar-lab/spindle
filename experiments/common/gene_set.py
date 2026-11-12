@@ -2,14 +2,14 @@
 retrieval.py. Ported from experiments/fig4_gene_set/common4.py (in git history); the niche means of the imputation
 baseline come from the cache (data.niche_means, staged by R0 exactly as common4.niche_means computed them).
 
-Workload (SPINDLE_PARTIAL.md §6, as 19 Oct, user 26 Oct: contiguous sets only): per held-out tile and size
+Workload (contiguous sets only): per held-out tile and size
 |S| = 4 / 8 / 16 / 32, a run of consecutive genes in one block of the query's home niche (the niche of its exact-d_B
 nearest index tile, cache D.npy): a block drawn uniformly among the niche's blocks with at least |S| genes (the size
 is skipped when there is none), then a uniform start. One generator per (dataset, seed), seeded by the seed. The
 query is the held-out tile's shrunk covariance cut to S (queries.tile_query); every niche is searched. Ground truth:
 the exact d_B^S (SpindleNaivePartial.distances).
 
-Baselines (experiment code, ported from the pre-cleanup src/spindle_dev/partial_search.py, in git history): the gene-set
+Baselines (experiment code only, not part of the package): the gene-set
 query is completed to all p genes, then searched as a whole tile with Spindle-naive (SpindleNaive.query_vectors +
 SpindleNaive.distances, exact d_B); no second shrinkage.
   padding     Q_S on S x S, the mean of Q_S's variances times I on the other genes, no cross terms.
@@ -24,7 +24,7 @@ import numpy as np
 from scipy.linalg import cho_factor, cho_solve
 
 import data  # noqa: F401  (puts src/ on sys.path)
-from spindle_dev.metrics import LOG_FLOOR, batched_log_spd, sym_to_vec
+from spindle.metrics import LOG_FLOOR, batched_log_spd, sym_to_vec
 
 SIZES = [4, 8, 16, 32]
 BAND_SIZE = 16

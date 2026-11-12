@@ -18,7 +18,7 @@ to its single-thread counterpart, bit for bit, on the warm-up queries:
   naive        Spindle-naive: kernels.naive_scan over every niche's block-log vectors, rows split into chunks over the
                pool + stable argsort (equal to SpindleNaive.distances, asserted).
   spindle      Spindle.search_vectors (g = 0.25): one call into the C kernel per query, one core whatever T (as R4).
-  spindle_par  Spindle's search split by niche (method-v3: FlatSpindle.probe_niche / scan_niche / assemble, the same
+  spindle_par  Spindle's search split by niche (FlatSpindle.probe_niche / scan_niche / assemble, the same
                output as search_vectors bit for bit, asserted): the pool's workers probe their niches, the main process
                takes the smallest leaf A^2 and the radius, the workers scan their niches, the main process assembles
                the ranking. Niches go to workers by longest-processing-time on their measured single-thread time, so at
@@ -50,8 +50,8 @@ from threadpoolctl import threadpool_limits
 
 import data
 import index_cache
-from spindle_dev.kernels import naive_scan
-from spindle_dev.metrics import LOG_FLOOR, as_cov, log_spd
+from spindle.kernels import naive_scan
+from spindle.metrics import LOG_FLOOR, as_cov, log_spd
 
 STEPS = ["qlog_whole_ms", "qlog_block_ms", "whole_ms", "naive_ms", "spindle_ms", "spindle_par_ms"]
 N_WARM = 3
