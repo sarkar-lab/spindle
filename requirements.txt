@@ -1,0 +1,9 @@
+numpy
+scipy
+scikit-learn
+umap-learn
+scanpy
+joblib
+igraph
+leidenalg
+pyyaml

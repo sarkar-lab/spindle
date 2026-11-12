@@ -1,0 +1,98 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+.env/
+.env.*
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Testing / coverage
+.pytest_cache/
+.coverage*
+htmlcov/
+.tox/
+
+# MyPy / type checking
+.mypy_cache/
+.pyre/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Documentation build artifacts
+docs/_build/
+
+# Logs and temporaries
+*.log
+*.tmp
+*.bak
+logs/
+
+# Large data files (store externally, not in the repo)
+dataset/
+*.h5ad
+paper/
+
+# Pickled layouts and indexes (large, re-generable)
+*.pkl
+
+# Manuscript: local copy of the Overleaf project (independent of the code; synced by hand)
+Spindle/
+
+
+# Compiled search kernels (built on first use from src/spindle_dev/kernels.c)
+src/spindle_dev/_build/
+
+# Talk deck, its scripts, figures and results (local only)
+presentation/
+
+# Poster: python-pptx installed locally (pip --target) and LibreOffice render scratch
+poster/
+
+# Result notebooks: index cache and Slurm logs (shared FS, re-generable)
+results/_cache/
+results/_logs/
+
+# Per-query dumps (re-generable)
+results/*/per_query/
+results/*/per_dataset/*/band_seed*.npz
+
+# Backups of earlier figure/notebook versions (local only; same relative paths as the originals)
+_backups/
+
+# Claude Code instructions and settings (local only)
+CLAUDE.md
+.claude/

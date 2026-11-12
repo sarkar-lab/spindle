@@ -1,0 +1,220 @@
+{
+ "topic": "queries",
+ "notebook": "R7_queries.ipynb",
+ "date": "2026-11-05 09:44",
+ "tag": "method-v2",
+ "describe": "method-v3-dirty",
+ "commit": "b35f7d4",
+ "inputs": [
+  "results/_cache"
+ ],
+ "peak_rss_gb": 0.19,
+ "notes": "Fig 4C. Old names: gene-list query T/TS -> method naive_partial/spindle_partial, jacc_T -> jacc_naive_partial.",
+ "files": {
+  "lists.csv": {
+   "description": "per dataset, list and method: mean and s.d. over seeds",
+   "rows": 48,
+   "bytes": 13041
+  },
+  "per_dataset/brain_cancer/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1164
+  },
+  "per_dataset/brain_cancer/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1170
+  },
+  "per_dataset/brain_cancer/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1146
+  },
+  "per_dataset/brain_cancer/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1169
+  },
+  "per_dataset/brain_cancer/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1162
+  },
+  "per_dataset/breast_cancer/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 10,
+   "bytes": 1878
+  },
+  "per_dataset/breast_cancer/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 10,
+   "bytes": 1894
+  },
+  "per_dataset/breast_cancer/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 10,
+   "bytes": 1907
+  },
+  "per_dataset/breast_cancer/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 10,
+   "bytes": 1893
+  },
+  "per_dataset/breast_cancer/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 10,
+   "bytes": 1886
+  },
+  "per_dataset/kidney_nondiseased/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 892
+  },
+  "per_dataset/kidney_nondiseased/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 897
+  },
+  "per_dataset/kidney_nondiseased/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 878
+  },
+  "per_dataset/kidney_nondiseased/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 897
+  },
+  "per_dataset/kidney_nondiseased/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 892
+  },
+  "per_dataset/lung_cancer/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 844
+  },
+  "per_dataset/lung_cancer/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 836
+  },
+  "per_dataset/lung_cancer/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 847
+  },
+  "per_dataset/lung_cancer/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 830
+  },
+  "per_dataset/lung_cancer/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 851
+  },
+  "per_dataset/lymph_node/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 8,
+   "bytes": 1519
+  },
+  "per_dataset/lymph_node/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 8,
+   "bytes": 1514
+  },
+  "per_dataset/lymph_node/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 8,
+   "bytes": 1539
+  },
+  "per_dataset/lymph_node/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 8,
+   "bytes": 1534
+  },
+  "per_dataset/lymph_node/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 8,
+   "bytes": 1526
+  },
+  "per_dataset/lymph_node_5k/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 791
+  },
+  "per_dataset/lymph_node_5k/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 806
+  },
+  "per_dataset/lymph_node_5k/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 806
+  },
+  "per_dataset/lymph_node_5k/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 775
+  },
+  "per_dataset/lymph_node_5k/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 4,
+   "bytes": 789
+  },
+  "per_dataset/pancreatic_cancer/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1141
+  },
+  "per_dataset/pancreatic_cancer/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1142
+  },
+  "per_dataset/pancreatic_cancer/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1156
+  },
+  "per_dataset/pancreatic_cancer/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1156
+  },
+  "per_dataset/pancreatic_cancer/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1160
+  },
+  "per_dataset/skin_melanoma/seed0_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1219
+  },
+  "per_dataset/skin_melanoma/seed1_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1232
+  },
+  "per_dataset/skin_melanoma/seed2_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1200
+  },
+  "per_dataset/skin_melanoma/seed3_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1202
+  },
+  "per_dataset/skin_melanoma/seed4_gene_lists.csv": {
+   "description": "every tissue signature x method (naive_partial, spindle_partial): delta, co-variation, Jaccard",
+   "rows": 6,
+   "bytes": 1220
+  }
+ }
+}

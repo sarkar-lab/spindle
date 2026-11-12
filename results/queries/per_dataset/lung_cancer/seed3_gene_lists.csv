@@ -1,0 +1,5 @@
+key,seed,list,n_genes,genes,missing,method,n_returned,delta,cov_top,cov_all,jacc_naive_partial,tag,lift
+lung_cancer,3,Alveolar_Airway_Epithelium,5,AGER FOXJ1 SCGB2A1 KRT7 SOX2,,naive_partial,10,0.367606520652771,0.0606708899140358,0.0642755776643753,1.0,method-v2,-0.003604687750339508
+lung_cancer,3,Alveolar_Airway_Epithelium,5,AGER FOXJ1 SCGB2A1 KRT7 SOX2,,spindle_partial,10,0.4062950611114502,0.058682333678007126,0.0642755776643753,0.5384615384615384,method-v2,-0.005593243986368179
+lung_cancer,3,Vascular_Endothelial,4,SOX17 SOX18 PECAM1 VWF,,naive_partial,10,0.8373770713806152,0.46921372413635254,0.13988928496837616,1.0,method-v2,0.3293244391679764
+lung_cancer,3,Vascular_Endothelial,4,SOX17 SOX18 PECAM1 VWF,,spindle_partial,10,0.7474098205566406,0.31967367976903915,0.13988928496837616,0.25,method-v2,0.179784394800663

@@ -1,0 +1,36 @@
+# Where every input dataset lives. This file is the ONLY place a dataset path is written down:
+# Python code reads it through paths.py (dataset_path), shell scripts through
+#   python paths.py <key | stem | file name>      (prints the full path)
+# Relative paths are relative to the repository root. If you move the data, edit this file only.
+
+# Folders
+dirs:
+  # The 8 indexed Xenium sections: plain conversions of the 10x outputs (raw counts in X, cell
+  # centroids in obsm["spatial"]).
+  xenium: /path/to/xenium_sections
+  # Other public 10x datasets (cell_feature_matrix.h5 + cells.csv.gz -> h5ad).
+  extra: /path/to/extra_datasets
+  # The registered Xenium / Visium pair of the cross-platform experiment (Fig 3).
+  cross_modal: /path/to/cross_modal
+
+# Datasets: key -> file. The 8 indexed sections are listed in figure order (by cell count).
+# max_genes (optional, default 800): the index keeps the top-variance min(max_genes, n_genes) genes.
+datasets:
+  skin_melanoma: {dir: xenium, file: xenium_human_skin_melanoma.h5ad}
+  kidney_nondiseased: {dir: xenium, file: xenium_human_kidney_nondiseased.h5ad}
+  breast_cancer: {dir: xenium, file: xenium_human_breast_cancer.h5ad}
+  lung_cancer: {dir: xenium, file: xenium_human_lung_cancer.h5ad}
+  pancreatic_cancer: {dir: xenium, file: xenium_human_pancreatic_cancer.h5ad}
+  lymph_node: {dir: xenium, file: xenium_human_lymph_node.h5ad}
+  # 5K panel: 400 genes, in line with the other panels (313-480).
+  lymph_node_5k: {dir: xenium, file: xenium_human_lymph_node_5k.h5ad, max_genes: 400}
+  brain_cancer: {dir: xenium, file: xenium_human_brain_cancer.h5ad}
+  # 10x human tonsil, reactive follicular hyperplasia, FFPE (1,349,620 cells, 377 genes); cell-scaling only.
+  tonsil_reactive: {dir: extra, file: xenium_human_tonsil_reactive.h5ad}
+  # Cross-platform pair (serial sections; Visium spots on the Xenium tile boxes).
+  cross_modal_xenium: {dir: cross_modal, file: xenium_rotated.h5ad}
+  cross_modal_visium: {dir: cross_modal, file: visium_rotated.h5ad}
+
+# The 8 indexed sections, in figure order.
+indexed: [skin_melanoma, kidney_nondiseased, breast_cancer, lung_cancer, pancreatic_cancer, lymph_node,
+          lymph_node_5k, brain_cancer]

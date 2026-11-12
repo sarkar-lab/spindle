@@ -1,0 +1,101 @@
+{
+ "topic": "skin_maps",
+ "notebook": "R9_skin_maps.ipynb",
+ "date": "2026-11-05 09:40",
+ "tag": "method-v2",
+ "describe": "method-v3-dirty",
+ "commit": "b35f7d4",
+ "inputs": [
+  "results/_cache",
+  "results/pan_cancer"
+ ],
+ "peak_rss_gb": 0.16,
+ "notes": "Fig 4A, B; supplementary tables.",
+ "files": {
+  "per_dataset/brain_cancer/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 4248,
+   "bytes": 348990
+  },
+  "per_dataset/brain_cancer/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 9487562
+  },
+  "per_dataset/breast_cancer/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 816,
+   "bytes": 66632
+  },
+  "per_dataset/breast_cancer/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 2454192
+  },
+  "per_dataset/kidney_nondiseased/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 312,
+   "bytes": 26988
+  },
+  "per_dataset/kidney_nondiseased/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 1104572
+  },
+  "per_dataset/lung_cancer/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 680,
+   "bytes": 54478
+  },
+  "per_dataset/lung_cancer/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 1986122
+  },
+  "per_dataset/lymph_node/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 1041,
+   "bytes": 83311
+  },
+  "per_dataset/lymph_node/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 5170327
+  },
+  "per_dataset/lymph_node_5k/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 3096,
+   "bytes": 257288
+  },
+  "per_dataset/pancreatic_cancer/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 803,
+   "bytes": 68901
+  },
+  "per_dataset/pancreatic_cancer/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 2353620
+  },
+  "per_dataset/skin_melanoma/seed0_gene_set_queries.csv": {
+   "description": "seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 372,
+   "bytes": 30011
+  },
+  "per_dataset/skin_melanoma/seed0_maps.npz": {
+   "description": "seed 0: cells, cell and tile scores, cell -> index tile, query Q, tiles Spindle returns, exact d_B^S of every index tile, tile centres and sides, per programme",
+   "rows": null,
+   "bytes": 1258688
+  },
+  "skin_cells.npz": {
+   "description": "skin seed 0: cells, cell scores (z-scored genes), tile scores, cell -> index tile, query Q and the tiles Spindle returns, per programme",
+   "rows": null,
+   "bytes": 1228189
+  },
+  "skin_gene_set_queries.csv": {
+   "description": "skin seed 0, every gene-set query: composition difference to Spindle's first 10 and a random 10",
+   "rows": 372,
+   "bytes": 30011
+  }
+ }
+}
