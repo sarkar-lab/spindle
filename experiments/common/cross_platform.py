@@ -191,7 +191,6 @@ def rank_of(d, t):
 
 def search(S, seed):
     """Both directions for one layout seed: {"per_query", "top10", "spindle", "index"} DataFrames."""
-    st = data.stamp()
     per_q, top, spindle_rows, info = [], [], [], []
     for direction, (index_mod, query_mod) in DIRECTIONS.items():
         t_covs, q_covs = S["covs"][index_mod], S["covs"][query_mod]
@@ -207,7 +206,7 @@ def search(S, seed):
         R = {f"spindle_{arm}": [spindle.search_vectors(v) for v in qv[arm]] for arm in ARMS}
         matched = match_of(S, direction)
         tum_q, tum_t = tumour(S, query_mod), tumour(S, index_mod)
-        base = {"seed": seed, "direction": direction, "N": n, "tag": st["tag"], "describe": st["describe"]}
+        base = {"seed": seed, "direction": direction, "N": n}
         ranked = {m: [(np.argsort(d, kind="stable"), d) for d in Dm] for m, Dm in D.items()}
         ranked |= {m: [(rows, D[m.replace("spindle", "naive")][q]) for q, (rows, _, _) in enumerate(res)]
                    for m, res in R.items()}
@@ -267,14 +266,13 @@ N_PC = 5
 def maps(S):
     """(tiles table of both platforms: box, cells / spots, composition, tumour fraction, co-located Xenium tile;
     {npz array name: array} of every Xenium cell and Visium spot: x, y, coarse class)."""
-    st = data.stamp()
     rows = []
     for m in PLATFORMS:
         tum = tumour(S, m)
         for i, t in enumerate(S["tiles"][m]):
             rows.append({"platform": m, "tile": i, "x0": t.bbox[0], "y0": t.bbox[1], "x1": t.bbox[2], "y1": t.bbox[3],
                          "n_obs": len(t.idx), "matched_xenium": int(S["matched_vi_to_xe"][i]) if m == "Visium" else i,
-                         "tumour": tum[i], **dict(zip(CLASSES, S["comp"][m][i])), "tag": st["tag"]})
+                         "tumour": tum[i], **dict(zip(CLASSES, S["comp"][m][i]))})
     cells = S["cells"]
     arrays = {"classes": np.array(CLASSES),
               **{f"{m}_xy": cells[m]["xy"].astype(np.float32) for m in PLATFORMS},
@@ -296,7 +294,6 @@ def bias_pca(S):
     (Euclidean, index vs query tiles) per state. Returns (projections, summary)."""
     from sklearn.decomposition import PCA
     from sklearn.metrics import silhouette_score
-    st = data.stamp()
     logs = {m: whole_logs(S["covs"][m]) for m in PLATFORMS}
     rows, summary = [], []
     for direction, (index_mod, query_mod) in DIRECTIONS.items():
@@ -314,7 +311,7 @@ def bias_pca(S):
             summary.append({"direction": direction, "corrected": corr,
                             "silhouette": float(silhouette_score(np.vstack([V_t, V_q]), lab)),
                             "centroid_gap": float(np.linalg.norm(V_t.mean(0) - V_q.mean(0))),
-                            "pc12_var": float(pca.explained_variance_ratio_[:2].sum()), "tag": st["tag"]})
+                            "pc12_var": float(pca.explained_variance_ratio_[:2].sum())})
     return pd.DataFrame(rows), pd.DataFrame(summary)
 
 
@@ -327,7 +324,6 @@ def example(S, top10):
     query's focal class (ties: lower query id). Reported with it: the top 5's share against the Xenium section's cell
     fraction of that class, the co-located tile's rank, the top 5 in seeds 1-4, and the base rate = the share of all
     focal-rich Visium queries (any co-located rank) whose top-5 mean exceeds the section's fraction."""
-    st = data.stamp()
 
     def top5(seed):
         t = top10[seed]
@@ -358,7 +354,6 @@ def example(S, top10):
     out["n_rich"], out["n_candidates"], out["rich_above_section"] = len(rich), len(cand), base_rate
     for s_ in data.SEEDS[1:]:
         out[f"top5_seed{s_}"] = " ".join(map(str, top5(s_).get(q, [])))
-    out["tag"] = st["tag"]
     print(f"example: Visium query {q} ({len(cand)} candidates of {len(rich)} focal-rich queries), {cls} "
           f"{comp_v[q, f]:.2f}; top-5 Xenium {cls} {out.hit_share.min():.2f}-{out.hit_share.max():.2f} (mean "
           f"{out.hit_share.mean():.2f}; section {section[f]:.3f}); co-located tile {m} at rank "
@@ -369,12 +364,11 @@ def example(S, top10):
 
 # ---------------------------------------------------------------- summaries (c_summary.py)
 def seed_stats(df, keys):
-    num = [c for c in df.columns if c not in keys + ["seed", "tag"]]
+    num = [c for c in df.columns if c not in keys + ["seed"]]
     out = df.groupby(keys)[num].agg(["mean", "std"])
     out.columns = [f"{a}_{b}" for a, b in out.columns]
     out = out.reset_index()
     out["n_seeds"] = df.groupby(keys)["seed"].nunique().to_numpy()
-    out["tag"] = data.TAG
     return out
 
 
@@ -388,8 +382,7 @@ def tissue_seeds(pq):
                      "tissue_r": float(g.query_tumour.corr(g.hits_tumour)), "n_no_hits": int(g.hits_tumour.isna().sum()),
                      "mae": float((g.query_tumour - g.hits_tumour).abs().mean()), "mae_random": g.random_mae.mean(),
                      "hit1": h["hit@1"].mean(), "hit5": h["hit@5"].mean(), "hit10": h["hit@10"].mean(),
-                     "hit5_random": 5 / g.N.iloc[0], "median_rank": h.matched_rank.median(), "n_matched": len(h),
-                     "tag": data.TAG})
+                     "hit5_random": 5 / g.N.iloc[0], "median_rank": h.matched_rank.median(), "n_matched": len(h)})
     return pd.DataFrame(rows)
 
 
@@ -406,5 +399,4 @@ def index_summary(ix):
                                         blocks_min=("n_blocks", "min"), blocks_max=("n_blocks", "max"),
                                         naive_mb=("bytes_naive", "mean"), spindle_mb=("bytes_spindle", "mean"))
     index[["naive_mb", "spindle_mb"]] /= 1e6
-    index["tag"] = data.TAG
     return index.reset_index()

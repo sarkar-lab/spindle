@@ -76,7 +76,7 @@ def gene_set_queries(S, seed):
         rows.append({"key": S["key"], "seed": seed, "query": j, "tile": int(c.test[j]), "size": L,
                      "n_cells": int(cnt_q[j].sum()), "n_found": len(found),
                      "tv_spindle": sx.tv(q, sx.shares(cnt_idx[top])) if len(top) else np.nan,
-                     "tv_random": float(np.mean(rand)), "tag": S["stamp"]["tag"]})
+                     "tv_random": float(np.mean(rand))})
     return pd.DataFrame(rows)
 
 

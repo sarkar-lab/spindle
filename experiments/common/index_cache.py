@@ -70,16 +70,12 @@ def peak_gb():
 # ---------------------------------------------------------------- status (what R0 skips)
 def build_done(key, seed):
     d = data.cache_dir(key, seed)
-    if not all((d / f).exists() for f in BUILD_FILES):
-        return False
-    return json.loads((d / "build.json").read_text()).get("tag") == data.TAG
+    return all((d / f).exists() for f in BUILD_FILES)
 
 
 def stage_done(key):
     d = data.CACHE / key
     if not all((d / f).exists() for f in STAGE_FILES):
-        return False
-    if json.loads((d / "covs.json").read_text()).get("tag") != data.TAG:
         return False
     return all((data.cache_dir(key, s) / f).exists() for s in data.SEEDS for f in STAGE_SEED_FILES)
 

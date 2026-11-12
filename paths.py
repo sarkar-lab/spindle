@@ -1,4 +1,5 @@
-"""Dataset paths, read from datasets.yaml (the only place they are written).
+"""Dataset paths, read from datasets.yaml (the only place they are written). A datasets.local.yaml next to it (not
+tracked) may override its ``dirs``, so a local copy can point at its own data without changing the tracked file.
 
   from paths import dataset_path
   dataset_path("breast_cancer")                 # by key, file stem or file name
@@ -16,13 +17,18 @@ import yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 CONFIG = PROJECT_ROOT / "datasets.yaml"
+LOCAL_CONFIG = PROJECT_ROOT / "datasets.local.yaml"
 DEFAULT_MAX_GENES = 800
 
 
 @lru_cache(maxsize=1)
 def _config() -> dict:
     with open(CONFIG) as fh:
-        return yaml.safe_load(fh)
+        cfg = yaml.safe_load(fh)
+    if LOCAL_CONFIG.exists():
+        with open(LOCAL_CONFIG) as fh:
+            cfg["dirs"].update((yaml.safe_load(fh) or {}).get("dirs") or {})
+    return cfg
 
 
 def _resolve(p: str) -> Path:

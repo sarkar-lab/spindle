@@ -11,15 +11,14 @@
 #SBATCH --hint=nomultithread
 #SBATCH --mem=32G
 #SBATCH --time=8:00:00
-#SBATCH --output=/home/NAShome/ghoss18/spindle_dev/results/_logs/R11_parallel/%x_%j.out
+#SBATCH --output=results/_logs/R11_parallel/%x_%j.out
 set -euo pipefail
-cd /home/NAShome/ghoss18/spindle_dev
 unset VIRTUAL_ENV PYTHONHOME
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate spindle_env
 # BLAS may use up to 64 threads; the code holds it at 1 (threadpoolctl) except in the timed whole-matrix logarithm
 export OPENBLAS_NUM_THREADS=64 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
-echo "$* (${SPINDLE_PARALLEL:-pilot}) on $(hostname), job ${SLURM_JOB_ID:-}, $(git describe --tags --dirty --always)"
+echo "$* (${SPINDLE_PARALLEL:-pilot}) on $(hostname), job ${SLURM_JOB_ID:-}, $(git describe --always --dirty)"
 echo "load: $(cat /proc/loadavg)"
 echo "cpus: $(taskset -pc $$)"
 lscpu | grep -E "Model name|Socket|Core|Thread|NUMA"

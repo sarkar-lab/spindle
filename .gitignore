@@ -63,6 +63,8 @@ logs/
 
 # Large data files (store externally, not in the repo)
 dataset/
+# Local dataset folders (overrides the dirs of datasets.yaml)
+datasets.local.yaml
 *.h5ad
 paper/
 

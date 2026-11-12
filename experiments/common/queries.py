@@ -21,7 +21,7 @@ PARTS = ("layout", "naive_partial", "spindle_partial")
 
 def gene_lists(S, seed):
     """Table of every list x method."""
-    c, st = S["c"], S["stamp"]
+    c = S["c"]
     n = len(c.train)
     mu = sx.tile_means(S, c.train)
     z = (mu - mu.mean(0)) / (mu.std(0) + 1e-9)
@@ -41,7 +41,7 @@ def gene_lists(S, seed):
                          "missing": " ".join(missing), "method": method, "n_returned": len(top),
                          "delta": float(sx.cliffs_delta(score[top], score[other])),
                          "cov_top": float(np.nanmedian(cov_all[top])), "cov_all": float(np.nanmedian(cov_all)),
-                         "jacc_naive_partial": sx.jaccard(top, tops["naive_partial"]), "tag": st["tag"]})
+                         "jacc_naive_partial": sx.jaccard(top, tops["naive_partial"])})
     G = pd.DataFrame(rows)
     G["lift"] = G.cov_top - G.cov_all
     return G
@@ -54,5 +54,4 @@ def summary_lists(g):
     out = g.groupby(by, sort=False)[num].mean().join(g.groupby(by, sort=False)[num].std(), rsuffix="_sd")
     out = out.reset_index()
     out["missing"] = g.groupby(by, sort=False)["missing"].first().fillna("").to_numpy()
-    out["tag"] = g.tag.iloc[0]
     return out

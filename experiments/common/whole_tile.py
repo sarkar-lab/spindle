@@ -22,7 +22,6 @@ import retrieval as rt
 # ---------------------------------------------------------------- Spindle against Spindle-naive
 def nx_rows(key, seed):
     """(per-query DataFrame, rows Spindle returned at g = 0.25 per query, D) of one (dataset, seed)."""
-    st = data.stamp()
     c = data.load_cache(key, seed, parts=("spindle", "queries", "D"))
     spindle, D = c.spindle, c.D
     n = D.shape[1]
@@ -37,8 +36,7 @@ def nx_rows(key, seed):
                         "N": n, "c5": c5, "n_found": len(rows), "short10": len(rows) < 10, "short5": len(rows) < c5,
                         "NX5": rt.nx(d, rows, c5), "overlap5": rt.overlap(d, rows, c5), "MX10": rt.mx10(d, rows),
                         "work": s["work"], "work_frac": s["work"] / n_nodes, "a_hat": s["a_hat"],
-                        "radius": s["radius"], "d_nearest": float(d.min()), "tag": st["tag"],
-                        "describe": st["describe"]})
+                        "radius": s["radius"], "d_nearest": float(d.min())})
             if g == rt.G_DEFAULT:
                 found0.append(rows)
     return pd.DataFrame(out), found0, D, c.test
@@ -52,18 +50,11 @@ def typical(df, D, found, test):
     j = int(ok["query"].iloc[(len(ok) - 1) // 2])
     rec = {"key": df.key.iloc[0], "seed": int(df.seed.iloc[0]), "query": j, "test_tile": int(test[j]),
            "NX5": float(q.NX5.iloc[j]), "n_found": int(q.n_found.iloc[j]), "N": int(q.N.iloc[j]), "queries": len(q),
-           "queries_ge10": len(ok), "share_short10": float(1 - len(ok) / len(q)), "tag": df.tag.iloc[0]}
+           "queries_ge10": len(ok), "share_short10": float(1 - len(ok) / len(q))}
     return rec, D[j].astype(np.float32), found[j]
 
 
 # ---------------------------------------------------------------- summaries (c_summary.py)
-def one_tag(df):
-    tags = set(df["tag"])
-    if tags != {data.TAG}:
-        raise RuntimeError(f"inputs carry tags {tags}, expected {data.TAG}")
-    return data.TAG
-
-
 def mean_sd(df, by, cols):
     g = df.groupby(by)[cols]
     m, s = g.mean(), g.std(ddof=1)
@@ -75,18 +66,15 @@ def mean_sd(df, by, cols):
 def nx_tables(pq):
     """(nx_seeds, nx): per (dataset, seed, g) means over held-out queries (MX10 over queries with >= 10 tiles; work,
     work fraction, tiles returned, radius / nearest exact d_B as medians); per (dataset, g) mean and s.d. over seeds."""
-    tag = one_tag(pq)
     pq = pq.assign(r_over_nn=pq.radius / pq.d_nearest)
     agg = pq.groupby(["key", "seed", "g"]).agg(
         NX5=("NX5", "mean"), overlap5=("overlap5", "mean"), MX10=("MX10", "mean"),
         short10=("short10", "mean"), short5=("short5", "mean"), work=("work", "median"),
         work_frac=("work_frac", "median"), n_found=("n_found", "median"), r_over_nn=("r_over_nn", "median"),
         N=("N", "first"), n_queries=("query", "size")).reset_index()
-    agg["tag"] = tag
     cols = ["NX5", "overlap5", "MX10", "short10", "short5", "work", "work_frac", "n_found", "r_over_nn",
             "N", "n_queries"]
     t = mean_sd(agg, ["key", "g"], cols)
-    t["tag"] = tag
     return agg, t
 
 
@@ -95,19 +83,16 @@ def timing_tables(tm):
     median ms of every timed step and of the end-to-end totals (query logarithms + search, summed per query: e2e_whole
     = whole-matrix logarithm + scan, e2e_naive / e2e_spindle = block logarithms + search); per dataset mean and s.d.
     over seeds and the speed-ups of the means, search only and end to end."""
-    tag = one_tag(tm)
     tm = tm.assign(e2e_whole_ms=tm.qlog_whole_ms + tm.whole_ms, e2e_naive_ms=tm.qlog_block_ms + tm.naive_ms,
                    e2e_spindle_ms=tm.qlog_block_ms + tm.spindle_ms)
     cols = ["qlog_whole_ms", "qlog_block_ms", "whole_ms", "naive_ms", "spindle_ms", "e2e_whole_ms", "e2e_naive_ms",
             "e2e_spindle_ms"]
     med = tm.groupby(["key", "seed"])[cols].median().reset_index()
     med["n_queries"] = tm.groupby(["key", "seed"]).size().values
-    med["tag"] = tag
     t = mean_sd(med, ["key"], cols)
     t["speedup_naive_vs_whole"] = t.whole_ms / t.naive_ms
     t["speedup_spindle_vs_naive"] = t.naive_ms / t.spindle_ms
     t["speedup_spindle_vs_whole"] = t.whole_ms / t.spindle_ms
     t["speedup_e2e_spindle_vs_whole"] = t.e2e_whole_ms / t.e2e_spindle_ms
     t["speedup_e2e_spindle_vs_naive"] = t.e2e_naive_ms / t.e2e_spindle_ms
-    t["tag"] = tag
     return med, t

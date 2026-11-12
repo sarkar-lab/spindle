@@ -4,7 +4,7 @@
     adata, tiles, covs, genes = data.prepare("breast_cancer")          # recomputed (deterministic, seconds)
     c = data.load_cache("breast_cancer", seed=0)                         # what index_cache.build stored
     c.spindle, c.spindle_partial, c.naive, c.naive_partial, c.layout, c.train, c.test, c.omega, c.D, c.qvs
-    data.stamp()                                                        # {"tag": "method-v2", ...}; every result row
+    data.stamp()                                                        # {"commit": "<short hash>"}; in every manifest
     covs, tiles = data.staged_covs("breast_cancer"), data.staged_tiles("breast_cancer")   # prepare()'s, no h5ad
 
 Seeds: 0-4, 10 % of the tiles held out at random (``split_tiles(seed, test_ratio=0.1)``);
@@ -48,7 +48,6 @@ for _p in (ROOT / "src", ROOT):
 import paths  # noqa: E402
 import spindle as sd  # noqa: E402
 
-TAG = "method-v2"  # the version label every result carries (checked when results are combined)
 SEEDS = [0, 1, 2, 3, 4]
 EXAMPLE_SEED = 0
 TEST_RATIO = 0.1
@@ -61,13 +60,15 @@ def indexed_keys():
 
 
 def _git(*args):
-    return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True).stdout.strip()
+    try:
+        return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True).stdout.strip()
+    except OSError:  # no git
+        return ""
 
 
 def stamp():
-    """The code version of a result: TAG, the label every result carries, and the git commit it was made from."""
-    return {"tag": TAG, "describe": _git("describe", "--tags", "--dirty", "--always"),
-            "commit": _git("rev-parse", "--short", "HEAD")}
+    """The git commit a result was made from ("" outside a git checkout)."""
+    return {"commit": _git("rev-parse", "--short", "HEAD")}
 
 
 def split(n_tiles, seed):

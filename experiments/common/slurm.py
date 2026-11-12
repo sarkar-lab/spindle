@@ -32,7 +32,7 @@ def submit(commands, script, sbatch, name, serial=False, dependency=None, extra=
     argfile = log / f"{stem}.args"
     argfile.write_text("\n".join(" ".join(c) for c in commands) + "\n")
     array = f"0-{len(commands) - 1}" + ("%1" if serial else "")
-    cmd = ["sbatch", "--parsable", f"--array={array}", f"--output={log}/%x_%A_%a.out",
+    cmd = ["sbatch", "--parsable", f"--chdir={ROOT}", f"--array={array}", f"--output={log}/%x_%A_%a.out",
            f"--export=ALL,SPINDLE_ARGFILE={argfile}", *extra]
     if dependency:
         cmd.append(f"--dependency=afterok:{dependency}")

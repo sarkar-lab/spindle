@@ -34,7 +34,6 @@ MB = 1e6
 
 def run(key, seed):
     """(per-query DataFrame, band dict or None). Only the held-out covariances are read (memory-mapped)."""
-    st = data.stamp()
     covs = data.staged_covs(key)
     c = data.load_cache(key, seed, parts=("layout", "naive", "naive_partial", "spindle_partial", "D"))
     naive, naive_partial, spindle_partial = c.naive, c.naive_partial, c.spindle_partial
@@ -52,7 +51,7 @@ def run(key, seed):
         seg = gs.n_segments(spindle_partial, idx)
         base = {"key": key, "seed": seed, "query": j, "test_tile": int(c.test[j]), "size": L, "home": home,
                 "block": b, "start": a, "N": n, "c5": c5, "seg_home": seg[home], "seg_max": max(seg.values()),
-                "d_nearest": float(d.min()), "tag": st["tag"], "describe": st["describe"]}
+                "d_nearest": float(d.min())}
         for method, r in (("spindle_partial", rows), ("padding", pad_rows), ("imputation", imp_rows)):
             rec = {**base, "method": method, "NX5": rt.nx(d, r, c5), "overlap5": rt.overlap(d, r, c5)}
             if method == "spindle_partial":
@@ -68,18 +67,11 @@ def run(key, seed):
     band = None
     if band_q:
         band = {"D": np.stack(band_d), "found": np.concatenate(band_rows),
-                "off": np.cumsum([0] + [len(r) for r in band_rows]), "query": np.asarray(band_q), "tag": st["tag"]}
+                "off": np.cumsum([0] + [len(r) for r in band_rows]), "query": np.asarray(band_q)}
     return pd.DataFrame(out), band
 
 
 # ---------------------------------------------------------------- summaries (c_summary.py)
-def one_tag(df):
-    tags = set(df["tag"])
-    if tags != {data.TAG}:
-        raise RuntimeError(f"inputs carry tags {tags}, expected {data.TAG}")
-    return data.TAG
-
-
 def mean_sd(df, by, cols):
     g = df.groupby(by)[cols]
     out = g.mean().join(g.std(ddof=1), rsuffix="_sd").reset_index()
@@ -94,19 +86,15 @@ def nx_tables(pq):
               the share whose predicted niche is the home niche
     nx        per (dataset, method, size): mean and s.d. over seeds of every nx_seeds column
     nx_size   per (method, size): per seed the median over datasets, then mean and s.d. over seeds"""
-    tag = one_tag(pq)
     pq = pd.concat([pq, pq.assign(size=0)])
     agg = pq.groupby(["key", "seed", "method", "size"]).agg(
         NX5=("NX5", "mean"), overlap5=("overlap5", "mean"), short10=("short10", "mean"), short5=("short5", "mean"),
         n_found=("n_found", "median"), work=("work", "median"), k_hat_home=("k_hat_home", "mean"),
         seg_max=("seg_max", "median"), N=("N", "first"), n_queries=("query", "size")).reset_index()
-    agg["tag"] = tag
     cols = ["NX5", "overlap5", "short10", "short5", "n_found", "work", "k_hat_home", "seg_max", "N", "n_queries"]
     t = mean_sd(agg, ["key", "method", "size"], cols)
-    t["tag"] = tag
     med = agg.groupby(["method", "size", "seed"])[["NX5", "overlap5", "short10"]].median().reset_index()
     s = mean_sd(med, ["method", "size"], ["NX5", "overlap5", "short10"])
-    s["tag"] = tag
     return agg, t, s
 
 
@@ -118,9 +106,9 @@ def typical_query(band, pq0):
     order = ok[np.argsort(pq.NX5.values[ok], kind="stable")]
     i = int(order[(len(order) - 1) // 2])
     found = band["found"][band["off"][i]:band["off"][i + 1]]
-    z = {"d": band["D"][i], "found": found, "query": int(band["query"][i]), "tag": data.TAG}
+    z = {"d": band["D"][i], "found": found, "query": int(band["query"][i])}
     row = {"query": int(band["query"][i]), "NX5": float(pq.NX5.values[i]), "n_found": len(found),
-           "n_queries": len(pq), "short10": float((pq.n_found < 10).mean()), "tag": data.TAG}
+           "n_queries": len(pq), "short10": float((pq.n_found < 10).mean())}
     return z, row
 
 
@@ -135,16 +123,14 @@ def storage_table():
             rows.append({"key": key, "seed": seed, "whole": b["bytes_whole"] / MB,
                          "naive_partial": b["bytes_naive_partial"] / MB,
                          "spindle_partial": b["bytes_spindle_partial"] / MB, "padding": b["bytes_naive"] / MB,
-                         "imputation": (b["bytes_naive"] + means) / MB, "tag": b["tag"]})
+                         "imputation": (b["bytes_naive"] + means) / MB})
     df = pd.DataFrame(rows)
-    tag = one_tag(df)
     cols = ["whole", "naive_partial", "spindle_partial", "padding", "imputation"]
     t = mean_sd(df, ["key"], cols)
     g = df.groupby("key")[cols]
     t = t.merge(g.min().add_suffix("_min").reset_index(), on="key").merge(g.max().add_suffix("_max").reset_index(),
                                                                           on="key")
     t["spindle_partial_pct_naive_partial"] = 100 * t.spindle_partial / t.naive_partial
-    t["tag"] = tag
     return t
 
 
@@ -157,7 +143,6 @@ def timing_tables(tm):
     median ms of every step per (dataset, seed) (and per size), the baselines' totals; per dataset mean and s.d. over
     seeds and the speed-ups of the means: search only (Spindle-naive search / Spindle) and end to end
     (Spindle-naive / (piece logs + Spindle))."""
-    tag = one_tag(tm)
     tm = tm.assign(padding_ms=tm.pad_fill_ms + tm.pad_qlog_ms + tm.pad_scan_ms,
                    imputation_ms=tm.imp_fill_ms + tm.imp_qlog_ms + tm.imp_scan_ms,
                    e2e_spindle_partial_ms=tm.qlog_spindle_partial_ms + tm.spindle_partial_ms)
@@ -168,11 +153,9 @@ def timing_tables(tm):
         m = tm.groupby(by)[cols].median().reset_index()
         m["n_queries"] = tm.groupby(by).size().values
         m["host"] = tm.groupby(by).host.agg(lambda h: ",".join(sorted(set(h)))).values
-        m["tag"] = tag
         out.append(m)
     t = mean_sd(out[0], ["key"], cols)
     t["speedup_spindle_partial"] = t.naive_partial_search_ms / t.spindle_partial_ms
     t["speedup_e2e"] = t.naive_partial_ms / (t.qlog_spindle_partial_ms + t.spindle_partial_ms)
     t["speedup_e2e_median"] = t.naive_partial_ms / t.e2e_spindle_partial_ms  # totals summed per query
-    t["tag"] = tag
     return out[0], out[1], t

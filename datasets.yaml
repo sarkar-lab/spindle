@@ -1,7 +1,8 @@
 # Where every input dataset lives. This file is the ONLY place a dataset path is written down:
 # Python code reads it through paths.py (dataset_path), shell scripts through
 #   python paths.py <key | stem | file name>      (prints the full path)
-# Relative paths are relative to the repository root. If you move the data, edit this file only.
+# Relative paths are relative to the repository root. If you move the data, edit this file only, or put your own
+# dirs in datasets.local.yaml (same format, `dirs:` only; not tracked), which overrides the dirs below.
 
 # Folders
 dirs:

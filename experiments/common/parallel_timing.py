@@ -302,7 +302,6 @@ def _host():
 def dataset_parallel(key, threads, n_queries, seeds, log=print):
     """Every step of the first n_queries held-out queries of every seed on T cores, T in threads: one row per (T, seed,
     query)."""
-    st = data.stamp()
     cores = physical_cores()
     main_core, cores = cores[-1], cores[:-1]  # the main process gets a core of its own
     threads = [t for t in threads if t <= len(cores)]
@@ -417,7 +416,7 @@ def dataset_parallel(key, threads, n_queries, seeds, log=print):
                                 "spindle_par_ms": 1e3 * ((t6 - t5) if pool is not None else (t5 - t4)),
                                 "qlog_block_blockwise_ms": 1e3 * (t7 - t6) if pool is None else np.nan,
                                 "spindle_found": len(rows), "spindle_work": s["work"],
-                                **_host(), "tag": st["tag"], "describe": st["describe"]})
+                                **_host()})
                 if pool is not None:
                     pool.close()
                     _pin(cores + [main_core])  # before BLAS goes back to its threads at the end of this block
@@ -465,5 +464,4 @@ def summary(tm):
     for sfx in ("", "_best"):
         t[f"speedup{sfx}_e2e_spindle_vs_whole"] = t[f"e2e_whole{sfx}_ms"] / t[f"e2e_spindle{sfx}_ms"]
         t[f"speedup{sfx}_e2e_spindle_vs_naive"] = t[f"e2e_naive{sfx}_ms"] / t[f"e2e_spindle{sfx}_ms"]
-    t["tag"] = sorted(set(tm.tag))[0]
     return med, t

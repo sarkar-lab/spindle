@@ -53,7 +53,6 @@ def _host():
 
 
 def whole_tile(key):
-    st = data.stamp()
     covs = data.staged_covs(key)
     W = data.staged_whole(key)
     wvec = index_cache.whole_vectorizer(covs.arr.shape[1])
@@ -88,8 +87,7 @@ def whole_tile(key):
             out.append({"key": key, "seed": seed, "query": j, "test_tile": int(c.test[j]), "N": len(X),
                         "qlog_whole_ms": 1e3 * (t1 - t0), "qlog_block_ms": 1e3 * (t2 - t1),
                         "whole_ms": 1e3 * (t3 - t2), "naive_ms": 1e3 * (t4 - t3), "spindle_ms": 1e3 * (t5 - t4),
-                        "spindle_found": len(rows), "spindle_work": s["work"], **_host(), "tag": st["tag"],
-                        "describe": st["describe"]})
+                        "spindle_found": len(rows), "spindle_work": s["work"], **_host()})
         m = pd.DataFrame(out[-len(idx):]).median(numeric_only=True)
         print(f"{key} seed {seed}: {len(idx)} queries; median ms whole {m.whole_ms:.2f}, naive {m.naive_ms:.2f}, "
               f"spindle {m.spindle_ms:.3f}; query logs whole {m.qlog_whole_ms:.1f}, block {m.qlog_block_ms:.1f}",
@@ -99,7 +97,6 @@ def whole_tile(key):
 
 
 def gene_set(key):
-    st = data.stamp()
     covs = data.staged_covs(key)
     out = []
     for seed in data.SEEDS:
@@ -145,7 +142,7 @@ def gene_set(key):
                         "pad_scan_ms": 1e3 * (t6 - t5), "imp_fill_ms": 1e3 * (t7 - t6),
                         "imp_qlog_ms": 1e3 * (t8 - t7), "imp_scan_ms": 1e3 * (t9 - t8),
                         "spindle_partial_found": len(rows), "spindle_partial_work": s["work"],
-                        **_host(), "tag": st["tag"], "describe": st["describe"]})
+                        **_host()})
         m = pd.DataFrame(out[-len(work):]).median(numeric_only=True)
         print(f"{key} seed {seed}: {len(work)} queries; median ms Spindle-naive {m.naive_partial_ms:.2f} (search "
               f"{m.naive_partial_search_ms:.2f}, query logs {m.qlog_naive_partial_ms:.2f}), Spindle "
@@ -157,13 +154,6 @@ def gene_set(key):
 
 
 # ---------------------------------------------------------------- summaries (fig3 / fig4 c_summary.py)
-def one_tag(df):
-    tags = set(df["tag"])
-    if tags != {data.TAG}:
-        raise RuntimeError(f"inputs carry tags {tags}, expected {data.TAG}")
-    return data.TAG
-
-
 def mean_sd(df, by, cols):
     g = df.groupby(by)[cols]
     out = g.mean().join(g.std(ddof=1), rsuffix="_sd").reset_index()
@@ -173,22 +163,18 @@ def mean_sd(df, by, cols):
 
 def whole_tile_tables(tm):
     """(per (dataset, seed) medians, per dataset mean and s.d. over seeds with the speed-ups of the means)."""
-    tag = one_tag(tm)
     med = tm.groupby(["key", "seed"])[WHOLE_STEPS].median().reset_index()
     med["n_queries"] = tm.groupby(["key", "seed"]).size().values
-    med["tag"] = tag
     t = mean_sd(med, ["key"], WHOLE_STEPS)
     t["speedup_naive_vs_whole"] = t.whole_ms / t.naive_ms
     t["speedup_spindle_vs_naive"] = t.naive_ms / t.spindle_ms
     t["speedup_spindle_vs_whole"] = t.whole_ms / t.spindle_ms
-    t["tag"] = tag
     return med, t
 
 
 def gene_set_tables(tm):
     """(per (dataset, seed) medians, per (dataset, seed, size) medians, per dataset mean and s.d. over seeds with the
     speed-ups: search only (Spindle-naive scan without its query logs / Spindle search) and end to end)."""
-    tag = one_tag(tm)
     tm = tm.assign(padding_ms=tm.pad_fill_ms + tm.pad_qlog_ms + tm.pad_scan_ms,
                    imputation_ms=tm.imp_fill_ms + tm.imp_qlog_ms + tm.imp_scan_ms)
     cols = GENE_SET_STEPS + ["padding_ms", "imputation_ms", "spindle_partial_found", "spindle_partial_work"]
@@ -197,10 +183,8 @@ def gene_set_tables(tm):
         m = tm.groupby(by)[cols].median().reset_index()
         m["n_queries"] = tm.groupby(by).size().values
         m["host"] = tm.groupby(by).host.agg(lambda h: ",".join(sorted(set(h)))).values
-        m["tag"] = tag
         res.append(m)
     t = mean_sd(res[0], ["key"], cols)
     t["speedup_spindle_partial"] = t.naive_partial_search_ms / t.spindle_partial_ms
     t["speedup_e2e"] = t.naive_partial_ms / (t.qlog_spindle_partial_ms + t.spindle_partial_ms)
-    t["tag"] = tag
     return res[0], res[1], t

@@ -125,7 +125,7 @@ def programs(S, seed):
         m = np.zeros((N_NULL, p), dtype=np.int32)
         m[np.arange(N_NULL)[:, None], sets] = 1
         null_enriched[s] = float(enriched_any(m, libs).mean())
-        null_rows.append({"size": s, "enriched_fraction": null_enriched[s], "n_sets": N_NULL, "tag": st["tag"]})
+        null_rows.append({"size": s, "enriched_fraction": null_enriched[s], "n_sets": N_NULL})
 
     rows = []
     for k in niches:
@@ -162,7 +162,6 @@ def programs(S, seed):
                 row["key_term"], row["key_fdr"] = row[f"{best}_term"], row[f"{best}_fdr"]
                 row["key_genes"] = row[f"{best}_genes"]
             row["covarying"] = row["null_p"] < 0.05
-            row["tag"] = st["tag"]
             rows.append(row)
     out = {"blocks": pd.DataFrame(rows), "enrich_null": pd.DataFrame(null_rows)}
 
@@ -176,7 +175,7 @@ def programs(S, seed):
         for t in section.index:
             trows.append({"niche": k, "type": t, "n_cells": int(n_type.get(t, 0)), "frac": float(frac.get(t, 0.0)),
                           "section_frac": float(section[t]), "niche_cells": len(cells),
-                          "share_of_type": float(n_type.get(t, 0) / (types == t).sum()), "tag": st["tag"]})
+                          "share_of_type": float(n_type.get(t, 0) / (types == t).sum())})
     out["niche_types"] = pd.DataFrame(trows)
 
     m = int(np.flatnonzero(genes == MARKER)[0])
@@ -187,7 +186,7 @@ def programs(S, seed):
         for j in range(p):
             if j != m:
                 arows.append({"niche": k, "gene": genes[j], "r": float(R[k][m, j]), "in_block": bool(j in blk),
-                              "block_size": len(blk), "tag": st["tag"]})
+                              "block_size": len(blk)})
     out["acta2"] = pd.DataFrame(arows)
 
     if seed in ("full", data.EXAMPLE_SEED):
@@ -206,7 +205,7 @@ def programs(S, seed):
 # ---------------------------------------------------------------- queries
 def tile_queries(S, seed):
     """{"tile_queries"}; for the example seed also "example" (DataFrame) and "example_cells" (arrays)."""
-    c, st = S["c"], S["stamp"]
+    c = S["c"]
     n = len(c.train)
     cnt_idx = sx.class_counts(S, c.train)
     cnt_q = sx.class_counts(S, c.test)
@@ -231,7 +230,7 @@ def tile_queries(S, seed):
                      "tv_spindle5": tv_of(q, top[:TOP5]), "tv_random5": float(np.mean(rand5)),
                      "tv_naive": tv_of(q, naive), "tv_naive5": tv_of(q, naive[:TOP5]),
                      "spindle_in_naive": int(len(set(naive.tolist()) & set(top.tolist()))),
-                     "spindle_found": len(spindle_rows), "tag": st["tag"]})
+                     "spindle_found": len(spindle_rows)})
     T = pd.DataFrame(rows)
     out = {"tile_queries": T}
     if seed != data.EXAMPLE_SEED:
@@ -248,7 +247,7 @@ def tile_queries(S, seed):
     ex = pd.DataFrame([{"set": k, **{cn: float(v) for cn, v in zip(sx.CLASS_NAMES, vec)}} for k, vec in comp.items()])
     ex["query_tile"], ex["dist_top"] = int(c.test[j]), " ".join(f"{c.D[j][r]:.4f}" for r in top)
     ex["top_tiles"] = " ".join(str(int(c.train[r])) for r in top)
-    ex["n_candidates"], ex["tag"] = len(cand), st["tag"]
+    ex["n_candidates"] = len(cand)
     ex["base_rate"] = float((T.tv_spindle < T.tv_random).mean())
     ids = [int(c.test[j])] + [int(c.train[r]) for r in top]
     arrays = {}

@@ -87,8 +87,7 @@ def exemplars():
         iu = np.triu_indices(len(idx), 1)
         rows.append({"program": prog, "genes": " ".join(found), "n_genes": len(idx), "tile": ex,
                      "n_cells": len(S["tiles"][ex].idx), "c": float(cs[r]), "mean_r": float(R[iu].mean()),
-                     "n_robust": int(np.isfinite(cs).sum()), "q": " ".join(f"{v:.3f}" for v in q),
-                     "tag": S["stamp"]["tag"]})
+                     "n_robust": int(np.isfinite(cs).sum()), "q": " ".join(f"{v:.3f}" for v in q)})
         arrays[f"R_{prog}"], arrays[f"q_{prog}"] = R, q
         arrays[f"bbox_{prog}"] = np.asarray(S["tiles"][ex].bbox, dtype=np.float64)
         print(f"{prog}: tile {ex} ({rows[-1]['n_cells']} cells), c {cs[r]:.3f}, mean r {R[iu].mean():.3f}, "
@@ -103,8 +102,7 @@ def gradient(S, E, Z):
     c, covs = S["c"], S["covs"]
     box = np.array([S["tiles"][t].bbox for t in c.train], dtype=np.float64)
     out = {"xy": S["xy"], "tiles": c.train, "centre": (box[:, :2] + box[:, 2:]) / 2,
-           "side": np.sqrt((box[:, 2] - box[:, 0]) * (box[:, 3] - box[:, 1])), "programs": E.program.to_numpy(),
-           "tag": S["stamp"]["tag"]}
+           "side": np.sqrt((box[:, 2] - box[:, 0]) * (box[:, 3] - box[:, 1])), "programs": E.program.to_numpy()}
     for prog in E.program:
         idx, _ = program_idx(S["genes"], prog)
         R, q = Z[f"R_{prog}"], Z[f"q_{prog}"]
