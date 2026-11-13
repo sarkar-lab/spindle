@@ -1,27 +1,25 @@
 {
  "topic": "block_distance",
  "notebook": "R12_block_distance.ipynb",
- "date": "2026-11-11 20:00",
- "tag": "method-v2",
- "describe": "method-v3-4-gb026ef3-dirty",
- "commit": "b026ef3",
+ "date": "2026-11-12 18:45",
+ "commit": "ac3d647",
  "inputs": [
   "results/_cache/<key>/whole.npy (R0)",
   "results/_cache/<key>/covs.npy (R0)",
   "results/_cache/<key>/seed0/naive.pkl (R0)"
  ],
- "peak_rss_gb": 1.65,
+ "peak_rss_gb": 1.46,
  "notes": "",
  "files": {
   "niches.csv": {
    "description": "the plotted niches, largest first: index tiles, blocks, genes p",
    "rows": 3,
-   "bytes": 140
+   "bytes": 106
   },
   "pairs.csv": {
    "description": "breast_cancer, seed-0 layout, the 3 largest niches: 1000 random distinct pairs of index tiles per niche (default_rng(0), niche after niche); whole-matrix log-Euclidean distance d_whole and block distance d_block (both / sqrt(p), shrunk covariances); tiles in prepare() order",
    "rows": 3000,
-   "bytes": 217128
+   "bytes": 187124
   }
  }
 }

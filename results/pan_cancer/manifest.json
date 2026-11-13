@@ -1,20 +1,18 @@
 {
  "topic": "pan_cancer",
  "notebook": "R8_pan_cancer.ipynb",
- "date": "2026-11-05 09:40",
- "tag": "method-v2",
- "describe": "method-v3-dirty",
- "commit": "b35f7d4",
+ "date": "2026-11-12 18:45",
+ "commit": "ac3d647",
  "inputs": [
   "results/_cache"
  ],
- "peak_rss_gb": 0.16,
+ "peak_rss_gb": 1.27,
  "notes": "Fig 4A.",
  "files": {
   "exemplar.csv": {
    "description": "one exemplar tile per programme: genes, c, mean r, variance quantiles q",
    "rows": 4,
-   "bytes": 655
+   "bytes": 611
   },
   "exemplar.npz": {
    "description": "R_S, q and box of each exemplar; breast cells",
@@ -24,7 +22,7 @@
   "per_dataset/skin_melanoma/seed0_gradient.npz": {
    "description": "seed 0: cells, index tile centres/sides, exact d_B^S of every index tile to each query",
    "rows": null,
-   "bytes": 634605
+   "bytes": 634405
   }
  }
 }

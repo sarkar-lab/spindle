@@ -130,7 +130,9 @@ cell centroids in `obsm["spatial"]`, and point the `dirs` entries of [`datasets.
 The experiments also need `pandas`, `matplotlib`, `threadpoolctl` and `jupyter_client`, with the environment
 registered as the Jupyter kernel `spindle_env`. The Slurm scripts in `experiments/common/` are set up for our cluster
 (partition, node and conda environment lines); submit them from the repository root, after
-`mkdir -p results/_logs/R4_timing results/_logs/R11_parallel` (Slurm does not create log folders).
+`mkdir -p results/_logs/R4_timing results/_logs/R11_parallel` (Slurm does not create log folders). If the compute
+nodes have no C compiler, build the search kernels once on a machine that has one:
+`python -c "import spindle.kernels as k; k.build()"`.
 
 1. **Index cache** ([`R0_index_cache`](experiments/compute/R0_index_cache.ipynb)): builds the layout and all four
    indexes for every dataset and seeds 0–4 (10% of tiles held out at random), times the builds, and stages the

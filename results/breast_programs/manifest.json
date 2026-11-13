@@ -1,26 +1,24 @@
 {
  "topic": "breast_programs",
  "notebook": "R6_breast_programs.ipynb",
- "date": "2026-11-05 09:44",
- "tag": "method-v2",
- "describe": "method-v3-dirty",
- "commit": "b35f7d4",
+ "date": "2026-11-12 18:46",
+ "commit": "ac3d647",
  "inputs": [
   "results/_cache/breast_cancer",
   "~/.cache/gseapy"
  ],
- "peak_rss_gb": 0.18,
- "notes": "Supplementary Fig S2 (full = whole-section layout, no tile held out) and Fig 3C (seed 0) inputs",
+ "peak_rss_gb": 5.02,
+ "notes": "Supplementary Fig S3 (full = whole-section layout, no tile held out) and Fig 3C (seed 0) inputs",
  "files": {
   "full/acta2.csv": {
    "description": "r of ACTA2 with every gene per niche, and whether the gene is in ACTA2's block",
    "rows": 936,
-   "bytes": 44683
+   "bytes": 35319
   },
   "full/blocks.csv": {
    "description": "one row per niche x block: genes, hubs, within / between / null mean |r|, null_p, co-varying, enrichment",
    "rows": 48,
-   "bytes": 15546
+   "bytes": 15062
   },
   "full/cells_niche.npz": {
    "description": "every cell: x, y, its tile's niche (-1 = none)",
@@ -45,22 +43,22 @@
   "full/enrich_null.csv": {
    "description": "expected enriched fraction of random gene sets per block size",
    "rows": 13,
-   "bytes": 346
+   "bytes": 212
   },
   "full/layout.json": {
    "description": "gene order and blocks per niche, panel genes",
    "rows": null,
-   "bytes": 7885
+   "bytes": 7834
   },
   "full/niche_types.csv": {
    "description": "annotated cell types of each niche's index-tile cells vs the section",
    "rows": 57,
-   "bytes": 5542
+   "bytes": 4968
   },
   "seed0/example.csv": {
    "description": "the example whole-tile query (rule in programs.py): compositions of query, Spindle's top 10, random 10, section, Spindle's top 5, random 5",
    "rows": 6,
-   "bytes": 1989
+   "bytes": 1925
   },
   "seed0/example_cells.npz": {
    "description": "cells (x, y, class) and boxes of the example query and Spindle's top 10",
@@ -70,7 +68,7 @@
   "seed0/tile_queries.csv": {
    "description": "one row per held-out tile: class composition, TV to Spindle's top 10 / top 5, random 10 / random 5, Spindle-naive's top 10 / top 5; Spindle's overlap with Spindle-naive's 10, tiles returned",
    "rows": 204,
-   "bytes": 50729
+   "bytes": 48685
   }
  }
 }

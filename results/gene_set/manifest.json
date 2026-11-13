@@ -1,320 +1,318 @@
 {
  "topic": "gene_set",
  "notebook": "R3_gene_set.ipynb",
- "date": "2026-11-01 01:55",
- "tag": "method-v2",
- "describe": "method-v2-dirty",
- "commit": "8040f91",
+ "date": "2026-11-12 20:49",
+ "commit": "ac3d647",
  "inputs": [
   "results/_cache"
  ],
- "peak_rss_gb": 3.41,
- "notes": "Fig 4 accuracy and storage; the timing tables come from results/timing/gene_set.csv (R4)",
+ "peak_rss_gb": 3.44,
+ "notes": "Fig 2A, C and Supplementary Fig S6; the timing tables come from results/timing/gene_set.csv (R4)",
  "files": {
   "band/brain_cancer.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 38470
+   "bytes": 38270
   },
   "band/breast_cancer.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 7990
+   "bytes": 7790
   },
   "band/kidney_nondiseased.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 4182
+   "bytes": 3982
   },
   "band/lung_cancer.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 7805
+   "bytes": 7605
   },
   "band/lymph_node.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 10623
+   "bytes": 10423
   },
   "band/lymph_node_5k.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 30107
+   "bytes": 29907
   },
   "band/pancreatic_cancer.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 9110
+   "bytes": 8910
   },
   "band/skin_melanoma.npz": {
    "description": "the typical |S| = 16 query (seed 0): exact d_B^S to every index tile (d), rows Spindle returned",
    "rows": null,
-   "bytes": 4150
+   "bytes": 3950
   },
   "band/typical.csv": {
    "description": "the typical |S| = 16 query per dataset and the share of |S| = 16 queries returning fewer than 10 tiles",
    "rows": 8,
-   "bytes": 581
+   "bytes": 497
   },
   "nx.csv": {
    "description": "per (dataset, method, size): mean and s.d. over seeds of nx_seeds",
    "rows": 120,
-   "bytes": 26799
+   "bytes": 25595
   },
   "nx_seeds.csv": {
    "description": "per (dataset, seed, method, size; 0 = pooled): mean NX5, Overlap over queries; Spindle short of 10 / 5 % N, median tiles returned and work; imputation home-niche share",
    "rows": 600,
-   "bytes": 70578
+   "bytes": 64574
   },
   "nx_size.csv": {
-   "description": "per (method, size): median over datasets per seed, mean and s.d. over seeds (Fig 4B, C)",
+   "description": "per (method, size): median over datasets per seed, mean and s.d. over seeds (Supplementary Fig S6D, E)",
    "rows": 15,
-   "bytes": 1865
+   "bytes": 1711
   },
   "per_dataset/brain_cancer/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 37447995
+   "bytes": 37447795
   },
   "per_dataset/brain_cancer/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 2025912
+   "bytes": 1694555
   },
   "per_dataset/brain_cancer/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 2024570
+   "bytes": 1693213
   },
   "per_dataset/brain_cancer/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 2023201
+   "bytes": 1691844
   },
   "per_dataset/brain_cancer/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1865401
+   "bytes": 1559550
   },
   "per_dataset/brain_cancer/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1829047
+   "bytes": 1529202
   },
   "per_dataset/breast_cancer/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 1492852
+   "bytes": 1492652
   },
   "per_dataset/breast_cancer/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 383016
+   "bytes": 319355
   },
   "per_dataset/breast_cancer/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 383071
+   "bytes": 319410
   },
   "per_dataset/breast_cancer/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 384002
+   "bytes": 320341
   },
   "per_dataset/breast_cancer/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 383311
+   "bytes": 319650
   },
   "per_dataset/breast_cancer/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 383051
+   "bytes": 319390
   },
   "per_dataset/kidney_nondiseased/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 239209
+   "bytes": 239009
   },
   "per_dataset/kidney_nondiseased/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 149495
+   "bytes": 125146
   },
   "per_dataset/kidney_nondiseased/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 114103
+   "bytes": 95370
   },
   "per_dataset/kidney_nondiseased/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 149338
+   "bytes": 124989
   },
   "per_dataset/kidney_nondiseased/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 148987
+   "bytes": 124638
   },
   "per_dataset/kidney_nondiseased/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 149150
+   "bytes": 124801
   },
   "per_dataset/lung_cancer/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 1136168
+   "bytes": 1135968
   },
   "per_dataset/lung_cancer/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 315047
+   "bytes": 261994
   },
   "per_dataset/lung_cancer/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 315025
+   "bytes": 261972
   },
   "per_dataset/lung_cancer/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 314841
+   "bytes": 261788
   },
   "per_dataset/lung_cancer/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 314610
+   "bytes": 261557
   },
   "per_dataset/lung_cancer/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 315257
+   "bytes": 262204
   },
   "per_dataset/lymph_node/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 2525888
+   "bytes": 2525688
   },
   "per_dataset/lymph_node/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 483696
+   "bytes": 402485
   },
   "per_dataset/lymph_node/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 484857
+   "bytes": 403412
   },
   "per_dataset/lymph_node/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 484881
+   "bytes": 403436
   },
   "per_dataset/lymph_node/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 484791
+   "bytes": 403346
   },
   "per_dataset/lymph_node/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 484446
+   "bytes": 403001
   },
   "per_dataset/lymph_node_5k/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 20398083
+   "bytes": 20397883
   },
   "per_dataset/lymph_node_5k/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1475982
+   "bytes": 1234481
   },
   "per_dataset/lymph_node_5k/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1473928
+   "bytes": 1232427
   },
   "per_dataset/lymph_node_5k/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1475594
+   "bytes": 1234093
   },
   "per_dataset/lymph_node_5k/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1478289
+   "bytes": 1236788
   },
   "per_dataset/lymph_node_5k/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 1476750
+   "bytes": 1235249
   },
   "per_dataset/pancreatic_cancer/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 1907464
+   "bytes": 1907264
   },
   "per_dataset/pancreatic_cancer/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 389552
+   "bytes": 326905
   },
   "per_dataset/pancreatic_cancer/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 366682
+   "bytes": 307623
   },
   "per_dataset/pancreatic_cancer/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 404725
+   "bytes": 339660
   },
   "per_dataset/pancreatic_cancer/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 415149
+   "bytes": 348368
   },
   "per_dataset/pancreatic_cancer/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 424360
+   "bytes": 356097
   },
   "per_dataset/skin_melanoma/band_seed0.npz": {
    "description": "seed 0, |S| = 16: exact d_B^S of every query to every index tile (D, float32) and the rows Spindle returned (found, offsets off), query test positions",
    "rows": null,
-   "bytes": 313008
+   "bytes": 312808
   },
   "per_dataset/skin_melanoma/seed0.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 172135
+   "bytes": 143106
   },
   "per_dataset/skin_melanoma/seed1.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 172065
+   "bytes": 143036
   },
   "per_dataset/skin_melanoma/seed2.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 172207
+   "bytes": 143178
   },
   "per_dataset/skin_melanoma/seed3.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 172021
+   "bytes": 142992
   },
   "per_dataset/skin_melanoma/seed4.csv": {
    "description": "one row per (held-out query, |S|, method): NX5, Overlap, Spindle's tiles returned / work / A_hat / radius, segments, imputation's predicted niche",
    "rows": null,
-   "bytes": 172299
+   "bytes": 143270
   },
   "storage.csv": {
    "description": "per dataset: MB (mean, s.d. over seeds, min, max) of whole covariances, Spindle-naive (gene sets), Spindle (gene sets), padding, imputation",
    "rows": 8,
-   "bytes": 2639
+   "bytes": 2555
   }
  }
 }
