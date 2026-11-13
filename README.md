@@ -110,7 +110,7 @@ does the same from the command line and reports Spindle's accuracy against Spind
 
 The paper uses public 10x Genomics datasets. Download them, convert each to an `.h5ad` file with raw counts in `X` and
 cell centroids in `obsm["spatial"]`, and point the `dirs` entries of [`datasets.yaml`](datasets.yaml) at your copies
-(or list them in a `datasets.local.yaml` beside it, not tracked, whose `dirs` override those of `datasets.yaml`).
+(or override them in an untracked `datasets.local.yaml` beside it).
 
 | Key in `datasets.yaml` | Dataset |
 |---|---|
@@ -128,24 +128,19 @@ cell centroids in `obsm["spatial"]`, and point the `dirs` entries of [`datasets.
 ### Steps
 
 The experiments also need `pandas`, `matplotlib`, `threadpoolctl` and `jupyter_client`, with the environment
-registered as the Jupyter kernel `spindle_env`. The Slurm scripts in `experiments/common/` are set up for our cluster
-(partition, node and conda environment lines); submit them from the repository root, after
-`mkdir -p results/_logs/R4_timing results/_logs/R11_parallel` (Slurm does not create log folders). If the compute
-nodes have no C compiler, build the search kernels once on a machine that has one:
-`python -c "import spindle.kernels as k; k.build()"`.
+registered as the Jupyter kernel `spindle_env`. The sbatch scripts in `experiments/common/` carry our cluster's
+partition and environment lines; adjust them to yours, and run
+`mkdir -p results/_logs/R4_timing results/_logs/R11_parallel` first (Slurm does not create log folders). Build the search kernels once before running anything on nodes
+without a C compiler: `python -c "import spindle.kernels as k; k.build()"`.
 
-1. **Index cache** ([`R0_index_cache`](experiments/compute/R0_index_cache.ipynb)): builds the layout and all four
-   indexes for every dataset and seeds 0–4 (10% of tiles held out at random), times the builds, and stages the
-   per-cell inputs into `results/_cache/` (not tracked). This is the only step that needs a cluster: it submits Slurm
-   jobs, and brain cancer needs about 128 GB.
-2. **Results** ([`experiments/compute/`](experiments/compute/), R1–R12): each notebook writes CSVs and a manifest to
-   `results/<topic>/` and skips outputs that already exist (`FORCE = True` redoes them). R1–R3, R5–R10 and R12 run in
-   16 GB through `sbatch experiments/common/run_nb.sbatch experiments/compute/<notebook>.ipynb`. The timings must run
-   alone on an idle node: R4 (one core) through `experiments/common/timing_nb.sbatch`, and R11 (1–64 cores) through
-   `experiments/common/parallel_nb.sbatch`.
-3. **Figures and tables** ([`experiments/figures/`](experiments/figures/)):
-   `python experiments/common/run_nb.py experiments/figures/<notebook>.ipynb` writes the figure to `figures/<figure>/`
-   and its panels to `figures/<figure>/panels/` (not tracked).
+1. **Index cache** ([`R0_index_cache`](experiments/compute/R0_index_cache.ipynb)) builds all indexes and stages their
+   inputs in `results/_cache/`. By default it uses the low-memory build, which runs in 16 GB but keeps intermediate
+   matrices on disk, so its speed depends on the disk's read speed. The paper reports the in-memory builds
+   (`LOWMEM = False`; about 55 GB for brain cancer).
+2. **Results** ([`experiments/compute/`](experiments/compute/), R1–R12): each notebook writes its results as CSV files
+   to `results/<topic>/`.
+3. **Figures and tables** ([`experiments/figures/`](experiments/figures/)): each notebook draws one figure into
+   `figures/<figure>/`; `T_supplement` writes the supplementary tables.
 
 | Paper | Notebook | Figure | Inputs |
 |---|---|---|---|
@@ -165,9 +160,7 @@ nodes have no C compiler, build the search kernels once on a machine that has on
 | Supp. Tables S1–S7 | [`T_supplement`](experiments/figures/T_supplement.ipynb) | [`supp_tables`](figures/supp_tables/) | R1, R4, R7, R8, R9 |
 
 Fig 1 as published is in [`figures/fig1_overview/`](figures/fig1_overview/); panels A–E were drawn by hand.
-`T1`–`T7.tex` are Supp. Tables S1–S4, S6, S7 and S5, in that order. The topics in `results/` are `index_cost` (R1),
-`whole_tile` (R2), `gene_set` (R3), `timing` (R4), `cross_platform` (R5), `breast_programs` (R6), `queries` (R7),
-`pan_cancer` (R8), `skin_maps` (R9), `block_structure` (R10), `parallel` (R11) and `block_distance` (R12).
+`T1`–`T7.tex` are Supp. Tables S1–S4, S6, S7 and S5, in that order.
 
 `examples/check_indexes.py <key>` (through sbatch on large sections) checks one dataset's indexes: exact self-queries,
 compiled searches equal to their references bit for bit, and the lower bound and safety of both Spindle indexes.
