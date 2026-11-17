@@ -2,6 +2,10 @@
 
 **Scalable indexing of spatial-omics data for fast querying.**
 
+https://github.com/user-attachments/assets/9ab01a94-4c37-4b43-b166-fabe8493c0b4
+
+*Spindle in under two minutes (with sound).*
+
 Spindle searches spatial transcriptomics data by gene co-expression. Each tissue section is cut into tiles, and each
 tile is summarized by its gene–gene covariance matrix. Given a query, Spindle finds the tiles whose genes co-vary most
 like it, measured by the log-Euclidean distance between covariance matrices.
